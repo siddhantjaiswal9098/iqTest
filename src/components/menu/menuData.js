@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/Feather';
 import Icon4 from 'react-native-vector-icons/FontAwesome';
-
+import scale from './../../utils/scale.js'
 
 import { connect } from 'react-redux';
 import * as Actions from './../../actions/commonAction'
@@ -18,7 +18,6 @@ const userIcon4 = (<Icon4 name="book" size={30} color="#fff" />)
 const userIcon5 = (<Icon name="contacts" size={30} color="#fff" />)
 
 const { height, width } = Dimensions.get('window');
-const textMax = 300;
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
 class Menu extends Component {
@@ -40,7 +39,7 @@ class Menu extends Component {
                     {this.props.data &&this.props.data.email&&<Text style={styles.email}>{this.props.data.email}</Text>}
                     {this.props.data&&this.props.data.name&& <Text style={styles.name}>{this.props.data.name} {this.props.data.lname}</Text>}
                 </View>
-                <View style={{justifyContent: 'space-between',height : 300}}>
+                <View style={{justifyContent: 'space-between',height : scale(300)}}>
                 <View style={{flexDirection: 'row'}}>
                {userIcon}
                     <Text
@@ -82,11 +81,11 @@ class Menu extends Component {
                 </Text>
                 </View>
                 </View>
-                <View style={{ position: 'absolute', alignItems: 'center', bottom: 30, left: 80, flexDirection: 'row' }}>
+                <View style={styles.iqTestFooterView}>
                     <Image
                         style={styles.AppLogo}
                         source={require('./../../assets/logo.jpg')} />
-                    <Text style={{ fontSize: 25, marginLeft: 5, color: 'white', fontWeight: 'bold' }}>
+                    <Text style={styles.iqTestFooter}>
                         iQtest
                     </Text>
                 </View>

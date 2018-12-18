@@ -7,9 +7,10 @@ import styles from './style.js'
 import Carousel from 'react-native-snap-carousel';
 import RadioGroup from 'react-native-radio-buttons-group';
 import IconCoro from 'react-native-vector-icons/AntDesign';
+import scale from './../../utils/scale.js'
 
-const IconNext = (<IconCoro name="right" size={30} color="#000" />)
-const IconPrev = (<IconCoro name="left" size={30} color="#000" />)
+const IconNext = (<IconCoro name="right" size={scale(30)} color="#000" />)
+const IconPrev = (<IconCoro name="left" size={scale(30)} color="#000" />)
 const { height, width } = Dimensions.get('window');
 
 class TestPage extends Component {
@@ -25,14 +26,14 @@ class TestPage extends Component {
             name: '',
             lname: '',
             //data: JSON.parse(this.props.dataApiTest).data,
-            data : this.props.dataApiTest,
+            data: [],
             textTimer: 300,
             modalVisible: false
         };
     }
     componentDidMount() {
         this.animate()
-        console.log("data on component:-",this.props.response2new);
+        console.log("data on component:-", this.props.response2new);
 
     }
     animate() {
@@ -48,7 +49,7 @@ class TestPage extends Component {
     }
     _renderItem({ item, index }) {
         return (
-            <View style={{ flex: 1,opacity: 0.7, backgroundColor: 'white',marginHorizontal: 5,paddingHorizontal: 10,borderRadius: 5 }}>
+            <View style={{ flex: 1, opacity: 0.7, backgroundColor: 'white', marginHorizontal: 5, paddingHorizontal: 10, borderRadius: 5 }}>
                 <Text style={{ paddingVertical: 20, fontSize: 20 }}>
                     {index + 1}) {item.question}
                 </Text>
@@ -76,20 +77,20 @@ class TestPage extends Component {
         );
     }
     onPress = (dataforRadio, index) => {
-         console.log("dataforRadio from Radio",dataforRadio);
+        console.log("dataforRadio from Radio", dataforRadio);
         dataforRadio.map(obj => {
 
             if (obj.selected) {
                 var flagData = true;
                 this.arrAnswers.map((obj2) => {
-                     console.log("Map1", obj2.index) 
+                    console.log("Map1", obj2.index)
                     if (obj2.index == index + 1) {
                         // alert("Same Data")
                         objAns = {
                             index: index + 1,
                             label: obj.label
                         }
-                         console.log("Map2",obj.label);
+                        console.log("Map2", obj.label);
                         this.arrAnswers[index] = objAns;
                         flagData = false;
                     }
@@ -119,8 +120,8 @@ class TestPage extends Component {
 
         return (hDisplay + mDisplay + sDisplay);
     }
-    UNSAFE_componentWillReceiveProps(nextProps){
-        this.setState({data: nextProps.dataApiTest});
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({ data: nextProps.dataApiTest });
     }
     render() {
         if (this.counter < 0) {
@@ -131,20 +132,20 @@ class TestPage extends Component {
         }
         return (
             <SafeAreaView style={styles.container}>
-             <Image
+                <Image
                     style={styles.imageBackground}
                     source={require('./../../assets/logo.jpg')}
                 />
-                 <View style={styles.prevBtn}>
-                       <TouchableOpacity onPress={() => this._carousel.snapToPrev()}>
+                <View style={styles.prevBtn}>
+                    <TouchableOpacity onPress={() => this._carousel.snapToPrev()}>
                         {IconPrev}
-                        </TouchableOpacity>
-                    </View >
-                    <View style={styles.nextBtn}>
+                    </TouchableOpacity>
+                </View >
+                <View style={styles.nextBtn}>
                     <TouchableOpacity onPress={() => this._carousel.snapToNext()}>
-                            {IconNext}
-                        </TouchableOpacity>
-                    </View>
+                        {IconNext}
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.TestIdView}>
                     <Text style={styles.TestIdText}>
                         Test No. :- {this.state.id}
@@ -168,7 +169,7 @@ class TestPage extends Component {
                 {
                     this.state.modalVisible ?
                         <Modal
-                            animationType="slide"
+                            animationType="fade"
                             transparent={true}
                             visible={this.state.modalVisible}>
                             <View style={styles.modalContainer}>
@@ -178,10 +179,19 @@ class TestPage extends Component {
                                             x
                                 </Text>
                                     </TouchableOpacity>
-                                    <Text style={{ paddingHorizontal: 20 }}>Do you want to Submit your test?</Text>
+                                    <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15)}}>Do you want to Submit your test?</Text>
                                     <View style={styles.okCancelView}>
-                                        <Text onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={styles.cancelText}>Cancel</Text>
-                                        <Text onPress={() => this.submitAns()} style={styles.okText}>Ok</Text>
+                                        <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
+                                            <Text style={{ color: 'white', fontSize: scale(15) }}>
+                                                Cancel
+                                        </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.submitAns()} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ color: 'white', fontSize: scale(15) }}>
+                                                Ok
+                                        </Text>
+                                        </TouchableOpacity>
+
                                     </View>
                                 </View>
                             </View>

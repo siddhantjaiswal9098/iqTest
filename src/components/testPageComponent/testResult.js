@@ -7,6 +7,8 @@ const { height, width } = Dimensions.get('window');
 import styles from './style.js'
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import scale from './../../utils/scale.js'
+
 const userIcon = (<Icon name="checkcircle" size={27} color="green" />)
 const userIcon2 = (<Icon2 name="circle-with-cross" size={30} color="red" />)
 
@@ -55,16 +57,16 @@ class testResult extends Component {
     })
     return (
       <View>
-        <TouchableOpacity style={{ borderColor: rightAns ? 'green': 'red', borderWidth: 2.4, opacity: .8, alignItems: 'center', padding: 10, marginHorizontal: 10, borderRadius: 5, marginVertical: 1, backgroundColor: 'white', flex: 1 }}>
-          <Text style={{ fontSize: 18 }}>{item.question} </Text>
-          <Text numberOfLines={1} style={{ fontSize: 23 }}>{item.answer}</Text>
-          <View style={{position: 'absolute', right: 5,bottom:5}}>
+        <TouchableOpacity style={{ borderColor: rightAns ? 'green': 'red', borderWidth: 2.4, opacity: .8, alignItems: 'center', padding: scale(10), marginHorizontal: scale(10), borderRadius: scale(5), marginVertical: scale(1), backgroundColor: 'white', flex: 1 }}>
+          <Text style={{ fontSize: scale(18) }}>{item.question} </Text>
+          <Text numberOfLines={1} style={{ fontSize: scale(23) }}>{item.answer}</Text>
+          <View style={{position: 'absolute', right: scale(5),bottom:scale(5)}}>
           
           {rightAns ? userIcon: userIcon2}
         </View>
         </TouchableOpacity>
         {
-          index < this.state.totalQues - 1 ? <View /> : <View style={{ marginBottom: 50 }} />
+          index < this.state.totalQues - 1 ? <View /> : <View style={{ marginBottom: scale(50) }} />
         }
          
       </View>
@@ -72,13 +74,16 @@ class testResult extends Component {
   }
   render() {
     //console.log("this.state.answerKey", this.state.answerKey)
+    var value=(this.state.marks/this.state.totalQues)*100;
+    var percentage = Math.round(value * 100) / 100
     return (
       <SafeAreaView style={styles.container2}>
         <Image
           style={styles.imageBackground2}
           source={require('./../../assets/logo.jpg')}
         />
-        <Text style={{ fontSize: 30, color: 'white' }}>Result :- {this.state.marks}/{this.state.totalQues}</Text>
+        <Text style={{ fontSize: scale(30), color: 'white' }}>Result :- {this.state.marks}/{this.state.totalQues}</Text>
+        <Text style={{ fontSize: scale(30), color: 'white' }}>percentage :- {percentage}%</Text>
         <FlatList
           data={this.state.answerKey}
           // style={{marginBottom:40,opacity:0}}

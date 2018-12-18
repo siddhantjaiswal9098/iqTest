@@ -2,44 +2,57 @@ import { Platform, StyleSheet } from 'react-native';
 import scale from './../../utils/scale.js';
 
 
-module.exports =  StyleSheet.create({
-    menu: {
-        flex: 1,
-        width: window.width,
-        height: window.height,
-        backgroundColor: '#61abea',
-        padding: scale(20),
-      },
-      avatarContainer: {
-        marginBottom: scale(20),
-        marginTop: scale(20),
-        width:  scale(230),
-        alignItems: 'center'
-      },
-      avatar: {
-        width: scale(120),
-        height: scale(120),
-        borderRadius: scale(24),
-      },
-      name: {
-        color: 'white',
-      },
-      email: {
-          color: 'white',
-          fontSize: scale(17)
-        },
-      item: {
-        color: 'white',
-        fontSize: scale(20),
-        fontWeight: 'bold',
-        paddingTop: scale(5),
-        marginLeft: 5
-      },
-      AppLogo: {
-        width: scale(50),
-        height: scale(50),
-        borderRadius: scale(40),
-        borderWidth: 3,
-        borderColor: 'white'
-      },
-    });
+module.exports = StyleSheet.create({
+  menu: {
+    flex: 1,
+    width: window.width,
+    height: window.height,
+    backgroundColor: '#61abea',
+    padding: scale(20),
+  },
+  avatarContainer: {
+    marginBottom: scale(20),
+    marginTop: scale(20),
+    width: scale(230),
+    alignItems: 'center'
+  },
+  avatar: {
+    width: scale(120),
+    height: scale(120),
+    borderRadius: scale(24),
+  },
+  name: {
+    color: 'white',
+  },
+  email: {
+    color: 'white',
+    fontSize: scale(17)
+  },
+  item: {
+    color: 'white',
+    fontSize: scale(20),
+    fontWeight: 'bold',
+    paddingTop: scale(5),
+    marginLeft: 5
+  },
+  AppLogo: {
+    width: scale(50),
+    height: scale(50),
+    borderRadius: scale(40),
+    borderWidth: 3,
+    borderColor: 'white'
+  },
+  iqTestFooter: {
+    fontSize: scale(25),
+    marginLeft: scale(5),
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  iqTestFooterView: {
+    position: 'absolute',
+    alignItems: 'center',
+    bottom: scale(30),
+    left: scale(80),
+    flexDirection: 'row'
+  }
+});

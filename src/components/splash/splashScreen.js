@@ -9,6 +9,7 @@ import styles from './style';
 // import { NavigationActions, StackActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
+import scale from './../../utils/scale.js';
 
 const userIcon = (<Icon name="user-o" size={30} color="#000" />)
 const lockIcon = (<Icon1 name="lock" size={30} color="#000" />)
@@ -72,11 +73,11 @@ class SplashScreen extends Component {
     render() {
         const top = this.animatedValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [1000, 0]
+            outputRange: [scale(1000), 0]
         })
         const bottom = this.animatedValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [1000, 0]
+            outputRange: [scale(1000), 0]
         })
         const left = this.animatedValue.interpolate({
             inputRange: [0, 1],
@@ -102,7 +103,7 @@ class SplashScreen extends Component {
                         style={{
                             transform: [{ rotateX }],
                             position: 'absolute',
-                            top: 200,
+                            top: scale(170),
                         }}>
                         <Image
                             style={styles.LogoImage}

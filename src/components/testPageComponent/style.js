@@ -16,26 +16,26 @@ module.exports = StyleSheet.create({
    
     imageBackground: {
         position: 'absolute',
-        height: 200,
-        width: 200,
-        borderRadius: 100,
+        height: scale(200),
+        width: scale(200),
+        borderRadius: scale(100),
         alignSelf: 'center',
-        top: height / 2 - 150
+        top: height / 2 - scale(150)
     },
     imageBackground2: {
         position: 'absolute',
-        height: 200,
-        width: 200,
-        borderRadius: 100,
+        height: scale(200),
+        width: scale(200),
+        borderRadius: scale(100),
         alignSelf: 'center',
-        top: height / 2 - 100
+        top: height / 2 - scale(100)
     },
     prevBtn: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        width: 30,
+        width: scale(30),
         bottom: 0,
         zIndex: 5000,
         justifyContent: 'center'
@@ -44,7 +44,7 @@ module.exports = StyleSheet.create({
         position: 'absolute',
         top: 0,
         right: 0,
-        width: 30,
+        width: scale(30),
         bottom: 0,
         zIndex: 5000,
         justifyContent: 'center'
@@ -53,64 +53,67 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20
+        paddingHorizontal: scale(20)
     },
     TestIdText: {
-        fontSize: 24,
-        paddingVertical: 20,
+        fontSize: scale(24),
+        paddingVertical: scale(20),
         color: 'white',
         fontWeight: 'bold',
     },
     TextTimer: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: scale(20),
         color: 'white',
-        paddingVertical: 20,
+        paddingVertical: scale(20),
     },
     submitView: {
         backgroundColor: 'white',
-        marginVertical: 10,
+        marginVertical: scale(10),
         alignItems: 'center',
-        width: width - 10,
-        paddingVertical: 10,
-        marginHorizontal: 5,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        padding: 20
+        width: width - scale(10),
+        paddingVertical: scale(10),
+        marginHorizontal: scale(5),
+        paddingHorizontal: scale(10),
+        borderRadius: scale(5),
+        padding: scale(20)
     },
     modalContainer: {
         flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center'
     },
     cancelBtnView: {
-        height: 150,
+        height: scale(150),
         backgroundColor: 'white',
-        opacity: .8,
-        width: 200,
+        opacity: 1,
+        width: scale(200),
         borderWidth: .5,
         borderColor: 'black',
-        borderRadius: 10
+        borderRadius: scale(10)
     },
     modalBtnText: {
         alignItems: 'flex-end',
-        marginRight: 10,
-        marginTop: 5,
-        fontSize: 20
+        marginRight: scale(10),
+        marginTop: scale(5),
+        fontSize: scale(20)
     },
     okCancelView: {
         flexDirection: 'row',
-        paddingHorizontal: 40,
-        paddingVertical: 30
+        paddingHorizontal: scale(40),
+        paddingVertical: scale(30),
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     cancelText: {
-        padding: 10,
+        padding: scale(10),
         backgroundColor: '#61abea',
         color: 'white',
-        marginRight: 10
+        marginRight: scale(10)
     },
     okText: {
-        padding: 10,
+        padding: scale(10),
         backgroundColor: '#61abea',
         color: 'white'
     },
@@ -118,13 +121,13 @@ module.exports = StyleSheet.create({
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 10,
+        bottom: scale(10),
         zIndex: 5000,
         justifyContent: 'center',
         alignItems: 'center'
     },
     takeAnotherTestText: {
         backgroundColor: '#cccccc',
-        padding: 10
+        padding: scale(10)
     }
 });
