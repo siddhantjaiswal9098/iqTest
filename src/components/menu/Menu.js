@@ -18,12 +18,11 @@ const styles = StyleSheet.create({
     width: window.width,
     height: window.height,
     backgroundColor: '#61abea',
-    padding: 20,
+    paddingLeft: 20
   },
 });
 
 export default function Menu({ onItemSelected }) {
-
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <MenuData onItemSelected={onItemSelected} />

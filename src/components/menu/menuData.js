@@ -30,7 +30,7 @@ class Menu extends Component {
 
     render() {
         return (
-            <View style={{ height: height, width: width, flex: 1, }} >
+            <View style={{ height: height-scale(30), width: width, flex: 1, }} >
 
                 <View style={styles.avatarContainer}>
                     <Image
@@ -85,9 +85,14 @@ class Menu extends Component {
                     <Image
                         style={styles.AppLogo}
                         source={require('./../../assets/logo.jpg')} />
+                    <View>
                     <Text style={styles.iqTestFooter}>
                         iQtest
                     </Text>
+                    <Text style={styles.iqTestFooterVersion}>
+                        v1.0
+                    </Text>
+                    </View>
                 </View>
             </View>
 

@@ -14,6 +14,8 @@ const { height, width } = Dimensions.get('window');
 
 
 class Home extends Component {
+    _didFocusSubscription;
+  _willBlurSubscription;
     constructor(props) {
         super(props);
         this.state = {
@@ -38,20 +40,29 @@ class Home extends Component {
         });
         navigation.dispatch(resetAction);
         this.setState({ ModalClose: false })
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+        //BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.signOutClicked();
     }
     feedBackBtn() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+       // BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.navigation.navigate('Feedback');
     }
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+        // BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+        this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+      ); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+    );
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+      );
     }
     componentWillMount() {
         this.props.ApiCallForAllTestAction()
     }
     componentWillUnmount() {
+        
     }
 
     handleBackPress = () => {
@@ -160,7 +171,7 @@ class Home extends Component {
         console.log('Item ', item.id)
         items = item.id
         this.props.ApiCallForTest(items);
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+      //  BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.navigation.navigate('TestPage', { items });
 
     }

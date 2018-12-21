@@ -48,6 +48,13 @@ module.exports = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
+  iqTestFooterVersion: {
+    fontSize: scale(15),
+    marginLeft: scale(15),
+    marginTop: scale(-5),
+    color: 'white',
+    fontWeight: 'bold'
+  },
   iqTestFooterView: {
     position: 'absolute',
     alignItems: 'center',

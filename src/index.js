@@ -26,7 +26,12 @@ class Index extends Component {
       //   }
     }
     onMenuItemSelected = item =>{
+        if(item=='Contact Us'){
+            Alert.alert(item,"siddhantjai9098@gmail.com")
+        }
+        else{
         Alert.alert(item," Will be implemented Soon..!!")
+        }
     // this.setState({
     //   isOpen: false,
     //   selectedItem: item,
@@ -36,7 +41,8 @@ class Index extends Component {
         const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
         return (
             <View style={styles.container}>
-            <SideMenu  menu={menu}
+            <SideMenu
+                menu={menu}
                 disableGestures={true}
                 onChange={(isOpen)=>{
                     if(!isOpen){
@@ -44,7 +50,7 @@ class Index extends Component {
                     }
                 }}
                 isOpen={this.state.isOpen}>
-                <Navigator />
+                    <Navigator />
                 </SideMenu>
                 {this.state.spinnerData?
                         <Modal

@@ -80,15 +80,16 @@ module.exports = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
+
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center'
     },
     cancelBtnView: {
-        height: scale(150),
+        height: scale(170),
         backgroundColor: 'white',
         opacity: 1,
-        width: scale(200),
+        width: scale(250),
         borderWidth: .5,
         borderColor: 'black',
         borderRadius: scale(10)

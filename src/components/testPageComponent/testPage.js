@@ -28,7 +28,8 @@ class TestPage extends Component {
             //data: JSON.parse(this.props.dataApiTest).data,
             data: [],
             textTimer: 300,
-            modalVisible: false
+            modalVisible: false,
+            itne: ''
         };
     }
     componentDidMount() {
@@ -123,12 +124,23 @@ class TestPage extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({ data: nextProps.dataApiTest });
     }
+    timeExpiredNavigate(){
+    clearInterval(this.timer);
+            this.props.SaveResult(this.state.data, this.arrAnswers);
+            
+            if (this.state.modalVisible) {
+                this.setState({ modalVisible: false });
+            }
+            else{
+            setTimeout(() => {
+                Alert.alert("TimeOut")
+            }, 1000);  
+            this.props.navigation.navigate('testResult');
+        }
+    }
     render() {
         if (this.counter < 0) {
-            clearInterval(this.timer);
-            this.props.SaveResult(this.state.data, this.arrAnswers);
-            Alert.alert("TimeOut")
-            this.props.navigation.navigate('testResult');
+            this.timeExpiredNavigate()
         }
         return (
             <SafeAreaView style={styles.container}>
@@ -163,7 +175,7 @@ class TestPage extends Component {
                     sliderWidth={width}
                     itemWidth={width}
                 />
-                <TouchableOpacity style={styles.submitView} onPress={() => this.setState({ modalVisible: !this.state.modalVisible })}>
+                <TouchableOpacity style={styles.submitView} onPress={() => this.submitModal()}>
                     <Text >SUBMIT</Text>
                 </TouchableOpacity>
                 {
@@ -179,7 +191,7 @@ class TestPage extends Component {
                                             x
                                 </Text>
                                     </TouchableOpacity>
-                                    <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15)}}>Do you want to Submit your test?</Text>
+                                    <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}>You have <Text style={{fontWeight:'bold',color:'red'}}>{this.state.itne}</Text> questions remaining..Do you really want to Submit your test?</Text>
                                     <View style={styles.okCancelView}>
                                         <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
@@ -200,11 +212,16 @@ class TestPage extends Component {
             </SafeAreaView>
         );
     }
+    submitModal() {
+        console.log("@@@@@@@", this.arrAnswers.length, this.state.data.length)
+        var questionNumber = this.state.data.length - this.arrAnswers.length;
+        this.setState({ modalVisible: !this.state.modalVisible, itne: questionNumber })
+    }
     submitAns() {
         this.props.SaveResult(this.state.data, this.arrAnswers);
+        clearInterval(this.timer);
         this.props.navigation.navigate('testResult')
         this.setState({ modalVisible: !this.state.modalVisible })
-        //this.arrAnswers
     }
 
 }
