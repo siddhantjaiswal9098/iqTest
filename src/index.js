@@ -7,6 +7,7 @@ import Navigator from './navigation/navigation';
 var Spinner = require('react-native-spinkit');
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/menu/Menu.js'
+import ReducerSpinner from './reducers/ReducerSpinner.js';
 
 class Index extends Component {
     constructor(props) {
@@ -72,9 +73,10 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     console.log("State",state)
     const ReducerSignup = state.ReducerSignup;
+    const ReducerSpinner = state.ReducerSpinner;
     const ReducerMenu = state.ReducerMenu;
     return {
-        spinnerData : ReducerSignup.spinnerData,
+        spinnerData : ReducerSpinner.spinnerData,
         sideMenuToggle : ReducerMenu.sideMenuToggle
     }
 }

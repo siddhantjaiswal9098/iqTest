@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, ImageBackground, StyleSheet, Text, View, PixelRatio, Animated, Easing, Image, TextInput } from 'react-native';
+import { ScrollView,SafeAreaView, ImageBackground, StyleSheet, Text, View, PixelRatio, Animated, Easing, Image, TextInput } from 'react-native';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Entypo';
@@ -81,7 +81,7 @@ class SplashScreen extends Component {
         })
         const left = this.animatedValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [1000, 0]
+            outputRange: [scale(1000), 0]
 
         })
         const rotateX = this.animatedValue2.interpolate({
@@ -89,7 +89,7 @@ class SplashScreen extends Component {
             outputRange: ['0deg', '180deg', '0deg']
         })
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground
                     style={styles.backgroundImage}
                     source={require('./../../assets/background.jpg')}
@@ -126,7 +126,7 @@ class SplashScreen extends Component {
                         </Animated.View>
                     </View>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -17,6 +17,7 @@ export function* ApiCallForTest2(action) {
     yield put({ type: 'API_RES', dataApiTest });
   }
   catch (e) {
+    // yield put({type: 'API_REST'})
     yield put(stopSpinner());
     console.log("responseERR", e);
   }
@@ -32,6 +33,7 @@ export function* ApiCallForAllTests() {
     yield put({ type: 'API_RES_ALL_TEST', AllTestDetail});
   }
   catch (e) {
+    ApiCallForAllTests()
     console.log("responseERR", e);
   }
 }

@@ -4,7 +4,6 @@ const initialstate = {
      dataApiTest : {},
      resultData : {},
      userAnswer: {},
-     spinnerData : false,
      AllTestDetail : [],
     }
 export default ReducerSignup = (state =initialstate,action) => {
@@ -26,16 +25,6 @@ export default ReducerSignup = (state =initialstate,action) => {
             answerKey : action.answerKey,
             userAnswer : action.userAnswer
         }
-        case 'START_SPINNER':
-        return {
-            ...state,
-            spinnerData : true
-        }
-        case 'STOP_SPINNER':
-        return {
-            ...state,
-            spinnerData : false
-        }
         case 'API_RES_ALL_TEST':
         return{
             ...state,
@@ -56,7 +45,6 @@ export default ReducerSignup = (state =initialstate,action) => {
                dataApiTest : {},
                resultData : {},
                userAnswer: {},
-               spinnerData : false,
                AllTestDetail : [],
                 
             }

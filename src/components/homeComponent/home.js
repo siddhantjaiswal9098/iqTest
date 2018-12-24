@@ -15,7 +15,7 @@ const { height, width } = Dimensions.get('window');
 
 class Home extends Component {
     _didFocusSubscription;
-  _willBlurSubscription;
+    _willBlurSubscription;
     constructor(props) {
         super(props);
         this.state = {
@@ -40,34 +40,29 @@ class Home extends Component {
         });
         navigation.dispatch(resetAction);
         this.setState({ ModalClose: false })
-        //BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.signOutClicked();
     }
     feedBackBtn() {
-       // BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.navigation.navigate('Feedback');
     }
     componentDidMount() {
-        // BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
-      ); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
-      BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
-    );
-    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
-      );
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+        ); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+        );
+        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+        );
     }
     componentWillMount() {
         this.props.ApiCallForAllTestAction()
     }
     componentWillUnmount() {
-        
-    }
 
+    }
     handleBackPress = () => {
         this.setState({ exitModal: true });
-        // works best when the goBack is async
         return true;
     }
     exitPress() {
@@ -98,11 +93,11 @@ class Home extends Component {
                 />
                 {
                     this.state.dataForListTest && this.state.dataForListTest.length == 0 ?
-                        <View style={{ position: 'absolute', top: height / 2, left: width / 2 -  scale(100) }}><Text>Fetching Latest data please wait..</Text></View>
+                        <View style={{fontSize: scale(17), position: 'absolute', top: height / 2, left: width / 2 - scale(100) }}><Text>Fetching Latest data please wait..</Text></View>
                         :
                         <View />
                 }
-                <TouchableOpacity style={{ borderRadius: scale(35), position: 'absolute', right:  scale(20), bottom:  scale(30) }} onPress={() => this.feedBackBtn()}>
+                <TouchableOpacity style={{ borderRadius: scale(35), position: 'absolute', right: scale(20), bottom: scale(30) }} onPress={() => this.feedBackBtn()}>
                     <Image
                         style={styles.feedbackIcon}
                         source={require('./../../assets/feedback.png')}
@@ -119,15 +114,15 @@ class Home extends Component {
                                     <TouchableOpacity style={styles.closeModal} onPress={() => this.setState({ ModalClose: false })}>
                                         <Text>x</Text>
                                     </TouchableOpacity>
-                                    <Text style={{ paddingHorizontal: scale(20) ,fontSize: scale(15) }}>Do you want logOut?</Text>
+                                    <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}>Do you want logOut?</Text>
                                     <View style={styles.okCancelView}>
                                         <TouchableOpacity onPress={() => this.setState({ ModalClose: false })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
-                                            <Text style={{ color: 'white',fontSize: scale(15)  }}>
+                                            <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Cancel
                                         </Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => this.logOutClick()} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ color: 'white',fontSize: scale(15)  }}>
+                                            <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Ok
                                         </Text>
                                         </TouchableOpacity>
@@ -147,7 +142,7 @@ class Home extends Component {
                                     <TouchableOpacity style={styles.closeModal} onPress={() => this.setState({ exitModal: false })}>
                                         <Text>x</Text>
                                     </TouchableOpacity>
-                                    <Text style={{ paddingHorizontal: 20,fontSize: scale(15)  }}>Do you Really want to Exit?</Text>
+                                    <Text style={{ paddingHorizontal: 20, fontSize: scale(15) }}>Do you Really want to Exit?</Text>
                                     <View style={styles.okCancelView}>
                                         <TouchableOpacity onPress={() => this.setState({ exitModal: false })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
@@ -155,7 +150,7 @@ class Home extends Component {
                                         </Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => this.exitPress()} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ color: 'white', fontSize: scale(15)  }}>
+                                            <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Ok
                                         </Text>
                                         </TouchableOpacity>
@@ -171,7 +166,6 @@ class Home extends Component {
         console.log('Item ', item.id)
         items = item.id
         this.props.ApiCallForTest(items);
-      //  BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
         this.props.navigation.navigate('TestPage', { items });
 
     }

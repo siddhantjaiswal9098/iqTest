@@ -51,7 +51,7 @@ class TestPage extends Component {
     _renderItem({ item, index }) {
         return (
             <View style={{ flex: 1, opacity: 0.7, backgroundColor: 'white', marginHorizontal: 5, paddingHorizontal: 10, borderRadius: 5 }}>
-                <Text style={{ paddingVertical: 20, fontSize: 20 }}>
+                <Text style={{ paddingVertical: 20, fontSize: scale(20) }}>
                     {index + 1}) {item.question}
                 </Text>
                 <View style={{ alignItems: 'flex-start' }}>
