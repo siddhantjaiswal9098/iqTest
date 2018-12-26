@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import {Dimensions,Alert,StyleSheet,ScrollView,Text,View,PixelRatio,TouchableOpacity,Image,TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/Entypo';
-import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
+const Icon2 = (<Icon name="send" size={40} color="#fff" />)
 import {connect} from 'react-redux';
 import * as Actions from './../../actions/commonAction'
 import {bindActionCreators} from 'redux';
 import { NavigationActions, StackActions } from 'react-navigation';
-const userIcon = (<Icon name="user-o" size={30} color="#000" />)
-const lockIcon = (<Icon1 name="lock" size={30} color="#000" />)
-const circleimg = (<Icon2 name="circle-with-plus" size={30} color="#867" />)
 const { height, width } = Dimensions.get('window');
 const textMax = 300;
 class Feedback extends Component {
@@ -69,8 +65,9 @@ class Feedback extends Component {
 						value={this.state.feedback} />
 					<Text style={{ color: 'gray' }}>{this.state.remaining} characters remaining</Text>
 					<View style={styles.btnContainer}>
-						<TouchableOpacity onPress={() => { this._submitFeedback(); }} >
-							<Image style={{height:60,width: 60}} source={require('./../../assets/feedback.png')} />
+						<TouchableOpacity style={{backgroundColor: '#61abea', padding: 10,paddingTop: 15,paddingRight: 15, borderRadius: 60}} onPress={() => { this._submitFeedback(); }} >
+            {Icon2}
+							{/* <Image style={{height:60,width: 60}} source={require('./../../assets/feedback.png')} /> */}
 						</TouchableOpacity>
 					</View>
 				</ScrollView>

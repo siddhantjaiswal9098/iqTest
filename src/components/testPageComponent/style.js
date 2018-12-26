@@ -124,11 +124,17 @@ module.exports = StyleSheet.create({
         right: 0,
         bottom: scale(10),
         zIndex: 5000,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     takeAnotherTestText: {
         backgroundColor: '#cccccc',
-        padding: scale(10)
+        margin: scale(10),
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 10
+        
     }
 });

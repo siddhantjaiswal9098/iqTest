@@ -10,6 +10,7 @@ import TestPage from './../components/testPageComponent/testPage.js'
 import testResult from './../components/testPageComponent/testResult.js'
 import SplashScreen from './../components/splash/splashScreen.js'
 import Feedback from './../components/feedbackComponent/feedback.js'
+import Certificate from './../components/certificate/certificateComponent.js'
 export default createStackNavigator({
  SplashScreen: {screen: SplashScreen ,navigationOptions : { header: null}},
  Signup: { screen: Signup, navigationOptions : { header: null,} },
@@ -18,6 +19,8 @@ logIn: { screen: logIn,navigationOptions :{headerStyle: { backgroundColor: '#61a
   Feedback: {screen: Feedback,navigationOptions : {title : 'Feedback'}},
   TestPage : {screen : TestPage ,navigationOptions : {headerStyle: { backgroundColor: '#61abea',},title : 'IqTest'}},
   testResult : {screen : testResult, navigationOptions : { header: null,},
+},
+Certificate:{screen : Certificate, navigationOptions : { header: null,},
 }
 });	
   

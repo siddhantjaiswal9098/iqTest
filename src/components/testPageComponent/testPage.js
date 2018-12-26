@@ -9,8 +9,8 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import IconCoro from 'react-native-vector-icons/AntDesign';
 import scale from './../../utils/scale.js'
 
-const IconNext = (<IconCoro name="right" size={scale(30)} color="#000" />)
-const IconPrev = (<IconCoro name="left" size={scale(30)} color="#000" />)
+const IconNext = (<IconCoro name="right" size={scale(25)} color="#000" />)
+const IconPrev = (<IconCoro name="left" size={scale(25)} color="#000" />)
 const { height, width } = Dimensions.get('window');
 
 class TestPage extends Component {
@@ -29,7 +29,8 @@ class TestPage extends Component {
             data: [],
             textTimer: 300,
             modalVisible: false,
-            itne: ''
+            itne: '',
+            dataLen: 0,
         };
     }
     componentDidMount() {
@@ -50,6 +51,13 @@ class TestPage extends Component {
     }
     _renderItem({ item, index }) {
         return (
+            <View style={{flex: 1,}}>
+            <View style={{alignItems: 'center',opacity: 0.7,padding: 5,marginHorizontal: 5,margin: 10,marginBottom: 5,borderRadius: 5, justifyContent: 'center', backgroundColor: 'white'}}>
+                
+                <Text >
+                {index+1}/{this.state.dataLen}
+                </Text>
+            </View>
             <View style={{ flex: 1, opacity: 0.7, backgroundColor: 'white', marginHorizontal: 5, paddingHorizontal: 10, borderRadius: 5 }}>
                 <Text style={{ paddingVertical: 20, fontSize: scale(20) }}>
                     {index + 1}) {item.question}
@@ -74,6 +82,7 @@ class TestPage extends Component {
                     ]}
                         onPress={(dataforRadio) => this.onPress(dataforRadio, index)} />
                 </View>
+            </View>
             </View>
         );
     }
@@ -122,7 +131,7 @@ class TestPage extends Component {
         return (hDisplay + mDisplay + sDisplay);
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({ data: nextProps.dataApiTest });
+        this.setState({ data: nextProps.dataApiTest ,dataLen: nextProps.dataApiTest.length});
     }
     timeExpiredNavigate(){
     clearInterval(this.timer);
@@ -191,7 +200,7 @@ class TestPage extends Component {
                                             x
                                 </Text>
                                     </TouchableOpacity>
-                                    <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}>You have <Text style={{fontWeight:'bold',color:'red'}}>{this.state.itne}</Text> questions remaining..Do you really want to Submit your test?</Text>
+                <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}> {this.state.itne?<Text> You have <Text style={{fontWeight:'bold',color:'red'}}>{this.state.itne}</Text> questions remaining..</Text>: <Text/>}Do you really want to Submit your test?</Text>
                                     <View style={styles.okCancelView}>
                                         <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>

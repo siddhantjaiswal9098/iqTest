@@ -9,6 +9,12 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import scale from './../../utils/scale.js'
 
+import TakeTestIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import GenerateCert from 'react-native-vector-icons/FontAwesome5';
+
+const TakeTestIcon2 = (<TakeTestIcon name="certificate" size={30} color="#000" />)
+const GenerateCert2 = (<GenerateCert name="home" size={30} color="#000" />)
+
 const userIcon = (<Icon name="checkcircle" size={27} color="green" />)
 const userIcon2 = (<Icon2 name="circle-with-cross" size={30} color="red" />)
 
@@ -82,7 +88,8 @@ class testResult extends Component {
           style={styles.imageBackground2}
           source={require('./../../assets/logo.jpg')}
         />
-        <Text style={{ fontSize: scale(30), color: 'white' }}>Result :- {this.state.marks}/{this.state.totalQues}</Text>
+        {/* <Text style={{ fontSize: scale(30), color: 'white' }}>Result :- {this.state.marks}/{this.state.totalQues}</Text> */}
+        <Text style={{ fontSize: scale(30), color: 'white' }}>Result :- {percentage>50? 'PASS': 'FAIL'}</Text>
         <Text style={{ fontSize: scale(30), color: 'white' }}>percentage :- {percentage}%</Text>
         <FlatList
           data={this.state.answerKey}
@@ -92,8 +99,23 @@ class testResult extends Component {
         />
         <View style={styles.takeAnotherTestView}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-            <Text style={styles.takeAnotherTestText}>Take another test.</Text>
+            <View style={styles.takeAnotherTestText}>{GenerateCert2}<Text> Take another test.</Text></View>
           </TouchableOpacity>
+          {
+            percentage>=0 ? 
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate',percentage={percentage})}>
+             <View style={styles.takeAnotherTestText}>{TakeTestIcon2}<Text> Generate Certificate</Text></View>
+          </TouchableOpacity>
+          :
+          <TouchableOpacity onPress={() => Alert.alert("You have failed the Test.")}>
+          <View style={styles.takeAnotherTestText}>
+          {TakeTestIcon2}
+          <Text> 
+            Generate Certificate
+            </Text>
+            </View>
+        </TouchableOpacity>
+          }
         </View >
       </SafeAreaView>
 
