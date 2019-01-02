@@ -30,12 +30,12 @@ class SplashScreen extends Component {
         this.animate2()
         
         setTimeout(() => {
-            console.log("Props",this.props.data);
+            //console.log("Props",this.props.data);
             let toRoute = 'Signup';
             if(this.props.data.length!=0){
                 toRoute = 'Home';
             }
-            console.log('^^^^^^^',this.props.data);
+            //console.log('^^^^^^^',this.props.data);
             let { navigation } = this.props;
             
             const resetAction = StackActions.reset({

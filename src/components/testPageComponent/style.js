@@ -38,7 +38,8 @@ module.exports = StyleSheet.create({
         width: scale(30),
         bottom: 0,
         zIndex: 5000,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 5
     },
     nextBtn: {
         position: 'absolute',
@@ -127,14 +128,36 @@ module.exports = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
+        
     },
     takeAnotherTestText: {
         backgroundColor: '#cccccc',
         margin: scale(10),
-        padding: 10,
+        padding: scale(10),
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: scale(10),
+    },
+    headerView: {
+        flexDirection: 'row',
+        marginBottom: scale(20),
+        backgroundColor: '#61abea',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: scale(10)
+    },
+    headerText: {
+        fontSize: scale(28),
+        color: 'white',
+        fontWeight: 'bold',
+    }, 
+    backBtnChat:{   
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        left: scale(10),
+        position: 'absolute',
+        padding : scale(10)
         
-    }
+    },
 });

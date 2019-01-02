@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Alert, Text, FlatList, View, PixelRatio, Modal, TouchableOpacity, Image, TextInput } from 'react-native';
+import { StyleSheet,Alert, Clipboard,Text, Toast, View, PixelRatio, Modal, TouchableOpacity, Image, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import * as Actions from './actions/commonAction.js'
 import { bindActionCreators } from 'redux';
@@ -12,7 +12,6 @@ import ReducerSpinner from './reducers/ReducerSpinner.js';
 class Index extends Component {
     constructor(props) {
         super(props);
-       // this.toggle = this.toggle.bind(this);
         this.state = {
             spinnerData : this.props.spinnerData,
             isOpen: false,
@@ -28,15 +27,26 @@ class Index extends Component {
     }
     onMenuItemSelected = item =>{
         if(item=='Contact Us'){
-            Alert.alert(item,"siddhantjai9098@gmail.com")
+            Alert.alert("siddhantjai9098@gmail.com",'Email has been copied to clipboard')
+            
+            Clipboard.setString('siddhantjai9098@gmail.com');
         }
-        else{
-        Alert.alert(item," Will be implemented Soon..!!")
+        else if(item=='Chat Page'){
+                this.props.navigateToChatting(item);
         }
-    // this.setState({
-    //   isOpen: false,
-    //   selectedItem: item,
-    // });
+        else if(item=='Lobby'){
+            this.props.navigateToChatting(item);
+        }
+        else if(item=='Settings'){
+            this.props.navigateToChatting(item);
+        }
+        else if(item=='About Us'){
+            this.props.navigateToChatting('HelpComponent');
+        }
+        
+        else {
+            Alert.alert(item," Will be implemented Soon..!!")
+            }
     }
     render() {
         const menu = <Menu onItemSelected={this.onMenuItemSelected}/>;
@@ -71,8 +81,7 @@ function mapDispatchToProps(dispatch) {
 
 }
 function mapStateToProps(state) {
-    console.log("State",state)
-    const ReducerSignup = state.ReducerSignup;
+    //console.log("State",state)
     const ReducerSpinner = state.ReducerSpinner;
     const ReducerMenu = state.ReducerMenu;
     return {

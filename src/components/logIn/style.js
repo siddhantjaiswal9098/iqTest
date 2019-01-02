@@ -60,4 +60,26 @@ module.exports =  StyleSheet.create({
         marginTop: 20,
         backgroundColor: 'white',
         },
+        headerView: {
+          flexDirection: 'row',
+          marginBottom: scale(20),
+          backgroundColor: '#61abea',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: scale(10)
+      },
+    backBtnChat:{   
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      left: scale(10),
+      position: 'absolute',
+      padding : scale(10),
+      top: scale(20)
+  },
+  headerText: {
+   fontSize: scale(28),
+   color: 'white',
+   fontWeight: 'bold',
+},
   });

@@ -34,7 +34,7 @@ class Certificate extends Component {
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
-        console.log('Siddhant', this.props.navigation.state.params.percentage)
+        //console.log('Siddhant', this.props.navigation.state.params.percentage)
 
         //   const granted = await PermissionsAndroid.check(
         //     'android.permission.READ_EXTERNAL_STORAGE'
@@ -54,16 +54,14 @@ class Certificate extends Component {
             }).catch((err) => {
                 alert(err);
             });
-        }, 2000);
-
-
+        }, 100);
     }
     onCancel() {
-        console.log("CANCEL")
+        //console.log("CANCEL")
         this.setState({ visible: false });
     }
     onOpen() {
-        console.log("OPEN")
+        //console.log("OPEN")
         this.setState({ visible: true });
     }
     clickSend() {
@@ -94,7 +92,7 @@ class Certificate extends Component {
         navigation.dispatch(resetAction);
     }
     render() {
-        console.log("URI:-", this.state.uriData);
+       // console.log("URI:-", this.state.uriData);
 
         return (
             <SafeAreaView style={styles.container} >

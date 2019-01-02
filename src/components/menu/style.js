@@ -13,8 +13,8 @@ module.exports = StyleSheet.create({
   avatarContainer: {
     marginBottom: scale(20),
     marginTop: scale(20),
-    width: scale(230),
-    alignItems: 'center'
+    width: scale(200),
+    alignItems: 'center',
   },
   avatar: {
     width: scale(120),

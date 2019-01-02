@@ -17,15 +17,14 @@ const styles = StyleSheet.create({
   menu: {
     width: window.width,
     height: window.height,
-    backgroundColor: '#61abea',
-    paddingLeft: 20
+    backgroundColor: 'transparent'
   },
 });
 
 export default function Menu({ onItemSelected }) {
   return (
-    <ScrollView scrollsToTop={false} style={styles.menu}>
+    // <ScrollView scrollsToTop={false} style={styles.menu}>
       <MenuData onItemSelected={onItemSelected} />
-    </ScrollView>
+    // </ScrollView>
   );
 }

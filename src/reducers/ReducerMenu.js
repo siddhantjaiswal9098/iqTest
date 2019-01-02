@@ -1,6 +1,8 @@
 
 const initialstate = {
-    sideMenuToggle: false
+    sideMenuToggle: false,
+    navigateToChat: false,
+    navigateScreen: ''
    }
 export default ReducerMenu = (state =initialstate,action) => {
     switch (action.type) {
@@ -13,6 +15,13 @@ export default ReducerMenu = (state =initialstate,action) => {
         return{
             ...state,
             sideMenuToggle: false
+        }
+        case 'NAVIGATE_TO_CHAT':
+        console.log("in reducer--->>>",action.action.data);
+        return{
+            ...state,
+            navigateScreen: action.action.data,
+            navigateToChat: !state.navigateToChat
         }
         default : 
         return{

@@ -26,3 +26,12 @@ export function closeMenu(){
 export function signOutClicked(){
        return  ({type : 'SIGN_OUT'})
 }
+export function navigateToChatting(data){
+       return  ({type : 'NAVIGATE_TO_CHAT_SAGA',data})
+}
+export function loginClickAction(data){
+       return  ({type : 'LOGIN',data});
+}
+export function ChangeAppColorAction(data){
+       return  ({type : 'APP_COLOR',data});
+}

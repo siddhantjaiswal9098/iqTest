@@ -65,7 +65,7 @@ class Feedback extends Component {
 						value={this.state.feedback} />
 					<Text style={{ color: 'gray' }}>{this.state.remaining} characters remaining</Text>
 					<View style={styles.btnContainer}>
-						<TouchableOpacity style={{backgroundColor: '#61abea', padding: 10,paddingTop: 15,paddingRight: 15, borderRadius: 60}} onPress={() => { this._submitFeedback(); }} >
+						<TouchableOpacity style={ {backgroundColor: this.props.appColor, padding: 10,paddingTop: 15,paddingRight: 15, borderRadius: 60}} onPress={() => { this._submitFeedback(); }} >
             {Icon2}
 							{/* <Image style={{height:60,width: 60}} source={require('./../../assets/feedback.png')} /> */}
 						</TouchableOpacity>
@@ -84,8 +84,10 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const ReducerSignup = state.ReducerSignup;  
+    const ReducerSettings = state.ReducerSettings;
   return {
-         data :  ReducerSignup.data
+         data :  ReducerSignup.data,
+         appColor: ReducerSettings.appColor
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

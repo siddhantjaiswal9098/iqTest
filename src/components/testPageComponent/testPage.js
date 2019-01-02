@@ -8,6 +8,9 @@ import Carousel from 'react-native-snap-carousel';
 import RadioGroup from 'react-native-radio-buttons-group';
 import IconCoro from 'react-native-vector-icons/AntDesign';
 import scale from './../../utils/scale.js'
+import BackIcon from 'react-native-vector-icons/Ionicons';
+
+const BackIcon2 = (<BackIcon name="md-arrow-back" size={30} color="#fff" />)
 
 const IconNext = (<IconCoro name="right" size={scale(25)} color="#000" />)
 const IconPrev = (<IconCoro name="left" size={scale(25)} color="#000" />)
@@ -18,7 +21,7 @@ class TestPage extends Component {
         super(props);
         this.arrAnswers = [];
         this.timer = setInterval(() => this.setState({ textTimer: this.counter-- }), 1000);
-        this.counter = 300;
+        this.counter = 69;
         this.animatedValue = new Animated.Value(0)
         this.state = {
             id: this.props.navigation.state.params.items,
@@ -62,7 +65,7 @@ class TestPage extends Component {
                 <Text style={{ paddingVertical: 20, fontSize: scale(20) }}>
                     {index + 1}) {item.question}
                 </Text>
-                <View style={{ alignItems: 'flex-start' }}>
+                <View style={{ alignItems: 'flex-start',marginLeft: scale(10) }}>
                     <RadioGroup radioButtons={[
                         {
                             label: item.option[0],
@@ -87,20 +90,20 @@ class TestPage extends Component {
         );
     }
     onPress = (dataforRadio, index) => {
-        console.log("dataforRadio from Radio", dataforRadio);
+        //console.log("dataforRadio from Radio", dataforRadio);
         dataforRadio.map(obj => {
 
             if (obj.selected) {
                 var flagData = true;
                 this.arrAnswers.map((obj2) => {
-                    console.log("Map1", obj2.index)
+                   // console.log("Map1", obj2.index)
                     if (obj2.index == index + 1) {
                         // alert("Same Data")
                         objAns = {
                             index: index + 1,
                             label: obj.label
                         }
-                        console.log("Map2", obj.label);
+                        //console.log("Map2", obj.label);
                         this.arrAnswers[index] = objAns;
                         flagData = false;
                     }
@@ -149,11 +152,21 @@ class TestPage extends Component {
     }
     render() {
         if (this.counter < 0) {
+
             this.timeExpiredNavigate()
         }
         return (
-            <SafeAreaView style={styles.container}>
-                <Image
+            // <SafeAreaView style={[styles.container,{backgroundColor: this.counter<60?this.counter%2==0?'red':'#61abea': '#61abea'}]}>
+            <SafeAreaView style={[styles.container,{backgroundColor: this.props.appColor}]}>             
+           <View style={[styles.headerView, { backgroundColor: this.props.appColor }]}>
+            <Text style={styles.headerText}>iqTest</Text>
+            
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtnChat}>
+                {BackIcon2}
+                <Text></Text>
+            </TouchableOpacity>
+        </View>
+            <Image
                     style={styles.imageBackground}
                     source={require('./../../assets/logo.jpg')}
                 />
@@ -171,7 +184,7 @@ class TestPage extends Component {
                     <Text style={styles.TestIdText}>
                         Test No. :- {this.state.id}
                     </Text>
-                    <Text style={styles.TextTimer}>
+                    <Text style={[styles.TextTimer, { color: this.counter<60?'red': 'white' }]}>
                         {this.timeFormatter(this.state.textTimer)}
                     </Text>
                 </View>
@@ -202,7 +215,7 @@ class TestPage extends Component {
                                     </TouchableOpacity>
                 <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}> {this.state.itne?<Text> You have <Text style={{fontWeight:'bold',color:'red'}}>{this.state.itne}</Text> questions remaining..</Text>: <Text/>}Do you really want to Submit your test?</Text>
                                     <View style={styles.okCancelView}>
-                                        <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
+                                        <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: this.props.appColor, width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Cancel
                                         </Text>
@@ -242,9 +255,11 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const ReducerSignup = state.ReducerSignup;
+    const ReducerSettings = state.ReducerSettings;
     return {
         data: ReducerSignup.data,
-        dataApiTest: ReducerSignup.dataApiTest
+        dataApiTest: ReducerSignup.dataApiTest,
+        appColor: ReducerSettings.appColor
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TestPage);

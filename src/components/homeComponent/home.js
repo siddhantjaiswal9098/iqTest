@@ -4,12 +4,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMenu from 'react-native-vector-icons/Entypo';
 import { connect } from 'react-redux';
 import styles from './style.js'
-import * as Actions from './../../actions/commonAction'
+import * as Actions from './../../actions/commonAction';
 import { bindActionCreators } from 'redux';
 import scale from './../../utils/scale.js'
 import { NavigationActions, StackActions } from 'react-navigation';
-const Icon2 = (<Icon name="power-off" size={30} color="#fff" />)
-const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />)
+import FeedbackIcon from 'react-native-vector-icons/MaterialIcons';
+
+const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
+const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
+const FeedbackIcon2 = (<FeedbackIcon name="chat" size={50} color="#fff" />);
 const { height, width } = Dimensions.get('window');
 
 
@@ -25,8 +28,25 @@ class Home extends Component {
         };
     }
     componentWillReceiveProps(nextProps) {
+        //console.log("********",nextProps.navigateToChat);
+        if( nextProps.navigateToChat==true&&nextProps.navigateScreen=='Chat Page'){
+            this.props.navigateToChatting(nextProps.navigateScreen);
+            this.props.closeMenu();
+            this.props.navigation.navigate('ChattingHome');
+        }
+        else if( nextProps.navigateToChat==true&&nextProps.navigateScreen=='Settings'){
+            this.props.navigateToChatting(nextProps.navigateScreen);
+            this.props.closeMenu();
+            this.props.navigation.navigate('SettingsComponent');
+        }
+        else if( nextProps.navigateToChat==true&&nextProps.navigateScreen=='HelpComponent'){
+            this.props.navigateToChatting(nextProps.navigateScreen);
+            this.props.closeMenu();
+            this.props.navigation.navigate('HelpComponent');
+        }
         if (this.props.AllTestDetail != nextProps.AllTestDetail) {
             this.setState({ dataForListTest: nextProps.AllTestDetail })
+           
         }
     }
     logOutClick() {
@@ -54,12 +74,11 @@ class Home extends Component {
         this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
             BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
         );
+        
     }
     componentWillMount() {
-        this.props.ApiCallForAllTestAction()
-    }
-    componentWillUnmount() {
-
+        this.props.ApiCallForAllTestAction();
+        
     }
     handleBackPress = () => {
         this.setState({ exitModal: true });
@@ -77,7 +96,7 @@ class Home extends Component {
                     style={styles.ImageBackground}
                     source={require('./../../assets/logo.jpg')}
                 />
-                <View style={styles.headerView}>
+                <View style={[styles.headerView, { backgroundColor: this.props.appColor }]}>
                     <Text style={styles.headerText}>Home</Text>
                     <TouchableOpacity onPress={() => this.props.toggleMenu()} style={styles.MenuBtnHome}>
                         {IconMenu2}
@@ -90,6 +109,7 @@ class Home extends Component {
                     data={this.state.dataForListTest}
                     renderItem={({ item }) => this.renderRow(item)
                     }
+                    keyExtractor={(item, index) => index.toString()}
                 />
                 {
                     this.state.dataForListTest && this.state.dataForListTest.length == 0 ?
@@ -97,11 +117,8 @@ class Home extends Component {
                         :
                         <View />
                 }
-                <TouchableOpacity style={{ borderRadius: scale(35), position: 'absolute', right: scale(20), bottom: scale(30) }} onPress={() => this.feedBackBtn()}>
-                    <Image
-                        style={styles.feedbackIcon}
-                        source={require('./../../assets/feedback.png')}
-                    />
+                <TouchableOpacity style={{ backgroundColor: this.props.appColor,borderRadius: scale(35), padding: scale(5),position: 'absolute', right: scale(20), bottom: scale(30) }} onPress={() => this.feedBackBtn()}>
+                   <View style={{marginTop: 5}}>{FeedbackIcon2}</View> 
                 </TouchableOpacity>
                 {
                     this.state.ModalClose ?
@@ -116,7 +133,7 @@ class Home extends Component {
                                     </TouchableOpacity>
                                     <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}>Do you want logOut?</Text>
                                     <View style={styles.okCancelView}>
-                                        <TouchableOpacity onPress={() => this.setState({ ModalClose: false })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
+                                        <TouchableOpacity onPress={() => this.setState({ ModalClose: false })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: this.props.appColor, width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Cancel
                                         </Text>
@@ -144,12 +161,12 @@ class Home extends Component {
                                     </TouchableOpacity>
                                     <Text style={{ paddingHorizontal: 20, fontSize: scale(15) }}>Do you Really want to Exit?</Text>
                                     <View style={styles.okCancelView}>
-                                        <TouchableOpacity onPress={() => this.setState({ exitModal: false })} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: '#61abea', width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
+                                        <TouchableOpacity onPress={() => this.setState({ exitModal: false })} style={{ borderRadius: 10,padding: scale(10), paddingHorizontal: scale(2), backgroundColor: this.props.appColor, width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10) }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Cancel
                                         </Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.exitPress()} style={{ padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center' }}>
+                                        <TouchableOpacity onPress={() => this.exitPress()} style={{ borderRadius: 10,padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center' }}>
                                             <Text style={{ color: 'white', fontSize: scale(15) }}>
                                                 Ok
                                         </Text>
@@ -163,7 +180,7 @@ class Home extends Component {
         );
     }
     itemClicked(item) {
-        console.log('Item ', item.id)
+       // console.log('Item ', item.id)
         items = item.id
         this.props.ApiCallForTest(items);
         this.props.navigation.navigate('TestPage', { items });
@@ -190,9 +207,15 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const ReducerSignup = state.ReducerSignup;
+    const ReducerMenu = state.ReducerMenu;
+    const ReducerSettings = state.ReducerSettings;
     return {
         data: ReducerSignup.data,
-        AllTestDetail: ReducerSignup.AllTestDetail
+        AllTestDetail: ReducerSignup.AllTestDetail,
+        navigateToChat: ReducerMenu.navigateToChat,
+        navigateScreen: ReducerMenu.navigateScreen,
+        appColor: ReducerSettings.appColor
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -22,7 +22,7 @@ class SignUp extends Component {
 
 
     this.state = {
-      email: 'siddhant@gmail.com',
+      email: 'siddhantjai9098@gmail.com',
       password: '123456789',
       name: 'Siddhant',
       lname: 'Jaiswal',
@@ -33,13 +33,13 @@ class SignUp extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,{backgroundColor: this.props.appColor}]}>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <Image
             style={styles.imageBackground}
             source={require('./../../assets/logo.jpg')}
           />
-          <View style={styles.container}>
+          <View style={[styles.container,{backgroundColor: this.props.appColor}]}>
             <Text style={styles.registration} >
               SIGNUP
           </Text>
@@ -126,9 +126,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch);
 }
 function mapStateToProps(state) {
-  // const ReducerSignup = state.ReducerSignup;  
+  
+  const ReducerSettings = state.ReducerSettings;
   return {
-    //  data :  ReducerSignup.data
+    appColor: ReducerSettings.appColor
 
   }
 }

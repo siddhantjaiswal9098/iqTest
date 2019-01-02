@@ -12,11 +12,11 @@ import scale from './../../utils/scale.js'
 import TakeTestIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GenerateCert from 'react-native-vector-icons/FontAwesome5';
 
-const TakeTestIcon2 = (<TakeTestIcon name="certificate" size={30} color="#000" />)
-const GenerateCert2 = (<GenerateCert name="home" size={30} color="#000" />)
+const TakeTestIcon2 = (<TakeTestIcon name="certificate" size={scale(30)} color="#000" />)
+const GenerateCert2 = (<GenerateCert name="home" size={scale(30)} color="#000" />)
 
-const userIcon = (<Icon name="checkcircle" size={27} color="green" />)
-const userIcon2 = (<Icon2 name="circle-with-cross" size={30} color="red" />)
+const userIcon = (<Icon name="checkcircle" size={scale(27)} color="green" />)
+const userIcon2 = (<Icon2 name="circle-with-cross" size={scale(30)} color="red" />)
 
 class testResult extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class testResult extends Component {
     var value=(this.state.marks/this.state.totalQues)*100;
     var percentage = Math.round(value * 100) / 100
     return (
-      <SafeAreaView style={styles.container2}>
+      <SafeAreaView style={[styles.container2, { backgroundColor: this.props.appColor }]}>
         <Image
           style={styles.imageBackground2}
           source={require('./../../assets/logo.jpg')}
@@ -93,24 +93,27 @@ class testResult extends Component {
         <Text style={{ fontSize: scale(30), color: 'white' }}>percentage :- {percentage}%</Text>
         <FlatList
           data={this.state.answerKey}
-          // style={{marginBottom:40,opacity:0}}
           renderItem={({ item, index }) => this.renderRow(item, index)
           }
+          keyExtractor={(item, index) => index.toString()}
         />
         <View style={styles.takeAnotherTestView}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-            <View style={styles.takeAnotherTestText}>{GenerateCert2}<Text> Take another test.</Text></View>
+            <View style={styles.takeAnotherTestText}>{GenerateCert2}<Text  style={{
+        fontSize: scale(12)}}> Take another test.</Text></View>
           </TouchableOpacity>
           {
             percentage>=0 ? 
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate',percentage={percentage})}>
-             <View style={styles.takeAnotherTestText}>{TakeTestIcon2}<Text> Generate Certificate</Text></View>
+             <View style={styles.takeAnotherTestText}>{TakeTestIcon2}<Text  style={{
+        fontSize: scale(12)}}> Generate Certificate</Text></View>
           </TouchableOpacity>
           :
           <TouchableOpacity onPress={() => Alert.alert("You have failed the Test.")}>
           <View style={styles.takeAnotherTestText}>
           {TakeTestIcon2}
-          <Text> 
+          <Text style={{
+        fontSize: scale(12)}}> 
             Generate Certificate
             </Text>
             </View>
@@ -145,10 +148,12 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   const ReducerSignup = state.ReducerSignup;
+  const ReducerSettings = state.ReducerSettings;
   return {
     data: ReducerSignup.data,
     answerKey: ReducerSignup.answerKey,
     userAnswer: ReducerSignup.userAnswer,
+    appColor: ReducerSettings.appColor
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(testResult);

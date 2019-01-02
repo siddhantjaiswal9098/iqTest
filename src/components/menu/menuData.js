@@ -30,72 +30,72 @@ class Menu extends Component {
 
     render() {
         return (
-            <View style={{ height: height-scale(30), width: width, flex: 1, }} >
+            <ScrollView scrollsToTop={false} style={[styles.menu,{backgroundColor: this.props.appColor}]}>
+            <View style={{ height: height - scale(30),
+                paddingLeft: 20, width: width, flex: 1 }} >
 
                 <View style={styles.avatarContainer}>
                     <Image
                         style={styles.avatar}
                         source={{ uri }} />
-                    {this.props.data &&this.props.data.email&&<Text style={styles.email}>{this.props.data.email}</Text>}
-                    {this.props.data&&this.props.data.name&& <Text style={styles.name}>{this.props.data.name} {this.props.data.lname}</Text>}
+                    {this.props.data && this.props.data.email && <Text style={styles.email}>{this.props.data.email}</Text>}
+                    {this.props.data && this.props.data.name && <Text style={styles.name}>{this.props.data.name} {this.props.data.lname}</Text>}
                 </View>
-                <View style={{justifyContent: 'space-between',height : scale(300)}}>
-                <View style={{flexDirection: 'row'}}>
-               {userIcon}
-                    <Text
-                        onPress={() => this.props.onItemSelected('Lobby')}
-                        style={styles.item}>
-                        Lobby
-                </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-               {userIcon2}
-                    <Text
-                        onPress={() => this.props.onItemSelected('Library')}
-                        style={styles.item}>
-                        Library
-                </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-               {userIcon3}
-                    <Text
-                        onPress={() => this.props.onItemSelected('Search')}
-                        style={styles.item}>
-                        Search
-                </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-               {userIcon4}
-                    <Text
-                        onPress={() => this.props.onItemSelected('About Us')}
-                        style={styles.item}>
-                        About Us
-                </Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-               {userIcon5}
-                    <Text
-                        onPress={() => this.props.onItemSelected('Contact Us')}
-                        style={styles.item}>
-                        Contact Us
-                </Text>
-                </View>
+                <View style={{flex:.6 ,justifyContent: 'space-around',}}>
+                    {/* <View style={{ justifyContent: 'space-between',flex: 1,backgroundColor: 'green' }}> */}
+
+                        <TouchableOpacity onPress={() => this.props.onItemSelected('Lobby')} style={{ flexDirection: 'row' }}>
+                            {userIcon}
+                            <Text
+                                style={styles.item}>
+                                Lobby
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.onItemSelected('Chat Page')} style={{ flexDirection: 'row',padding:2 }}>
+                            {userIcon2}
+                            <Text
+                                style={styles.item}>
+                                Chatting
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.onItemSelected('Settings')} style={{ flexDirection: 'row',padding:2 }}>
+                            {userIcon3}
+                            <Text
+                                style={styles.item}>
+                                Settings
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.onItemSelected('About Us')} style={{ flexDirection: 'row',padding:2 }}>
+                            {userIcon4}
+                            <Text
+                                style={styles.item}>
+                                About Us
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.onItemSelected('Contact Us')} style={{ flexDirection: 'row',padding:2 }}>
+                            {userIcon5}
+                            <Text
+                                style={styles.item}>
+                                Contact Us
+                            </Text>
+                        </TouchableOpacity>
+                    {/* </View> */}
                 </View>
                 <View style={styles.iqTestFooterView}>
                     <Image
                         style={styles.AppLogo}
                         source={require('./../../assets/logo.jpg')} />
                     <View>
-                    <Text style={styles.iqTestFooter}>
-                        iQtest
+                        <Text style={styles.iqTestFooter}>
+                            iQtest
                     </Text>
-                    <Text style={styles.iqTestFooterVersion}>
-                        v1.0
+                        <Text style={styles.iqTestFooterVersion}>
+                            v1.0
                     </Text>
                     </View>
                 </View>
             </View>
-
+            </ScrollView>
         );
     }
 }
@@ -107,8 +107,11 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const ReducerSignup = state.ReducerSignup;
+    const ReducerSettings = state.ReducerSettings;
     return {
-        data: ReducerSignup.data
+        data: ReducerSignup.data,
+        appColor: ReducerSettings.appColor
+        
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
