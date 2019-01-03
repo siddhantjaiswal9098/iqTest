@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as Actions from './../../actions/commonAction'
 import { bindActionCreators } from 'redux';
 import { NavigationActions, StackActions } from 'react-navigation';
-const HelpHTML = require('./Help.html');
+
 const { height, width } = Dimensions.get('window');
 const textMax = 300;
 class HelpComponent extends Component {
@@ -20,10 +20,17 @@ class HelpComponent extends Component {
     }
     render() {
         const data = this.props.data;
+        if(!__DEV__){
+            //code condition for IOS release if in future needed.
+            URI = {uri: 'file:///android_asset/Help.html'}
+         }
+         else{
+            URI = require('./Help.html');
+         }
         return (
             <View style={styles.container} >
                 <WebView
-                    source={HelpHTML}
+                    source={URI}
                     style={{ marginTop: 20,marginBottom: 20 }}
                 />
             </View>

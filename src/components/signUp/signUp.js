@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, Dimensions, RadioButton, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import {
+  ScrollView, StyleSheet, Text, Dimensions, RadioButton, View, TouchableOpacity, Image, TextInput
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
-import * as Actions from './../../actions/commonAction'
 import { NavigationActions, StackActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
 import styles from './style';
+import * as Actions from '../../actions/commonAction';
 
 const { height, width } = Dimensions.get('window');
-const userIcon = (<Icon name="user-o" size={30} color="#000" />)
-const lockIcon = (<Icon1 name="lock" size={30} color="#000" />)
-const circleimg = (<Icon2 name="plus" size={30} color="#fff" />)
+const userIcon = (<Icon name="user-o" size={30} color="#000" />);
+const lockIcon = (<Icon1 name="lock" size={30} color="#000" />);
+const circleimg = (<Icon2 name="plus" size={30} color="#fff" />);
 
 
 class SignUp extends Component {
@@ -20,39 +23,59 @@ class SignUp extends Component {
     super(props);
 
 
-
     this.state = {
       email: 'siddhantjai9098@gmail.com',
       password: '123456789',
       name: 'Siddhant',
       lname: 'Jaiswal',
-
+      imageURI: ''
     };
   }
+
   componentDidMount() {
   }
+
+  openGallery() {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then((imageURI) => {
+      console.log(imageURI);
+      this.setState({ imageURI });
+    });
+  }
+
   render() {
+    let open = require('./../../assets/logo.jpg');
+    if (this.state.imageURI) {
+     // console.log(this.state.imageURI.path, 'Hello');
+      open = { uri: this.state.imageURI.path };
+    }
     return (
-      <View style={[styles.container,{backgroundColor: this.props.appColor}]}>
+      <View style={[styles.container, { backgroundColor: this.props.appColor }]}>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-          <Image
-            style={styles.imageBackground}
-            source={require('./../../assets/logo.jpg')}
-          />
-          <View style={[styles.container,{backgroundColor: this.props.appColor}]}>
-            <Text style={styles.registration} >
+          <TouchableOpacity onPress={() => this.openGallery()}>
+            <Image
+              style={styles.imageBackground}
+              source={open}
+            />
+          </TouchableOpacity>
+          <View style={[styles.container, { backgroundColor: this.props.appColor }]}>
+            <Text style={styles.registration}>
               SIGNUP
-          </Text>
-            <Text style='styles.text1'></Text>
+            </Text>
+            <Text style={styles.text1} />
             <View style={styles.inlineView}>
               <View style={styles.viewfont}>
                 {userIcon}
               </View>
               <TextInput
                 style={styles.inputfield}
-                onChangeText={(email) => this.setState({ email })}
+                onChangeText={email => this.setState({ email })}
                 value={this.state.email}
-                placeholder='SomeUser@gmail.com' />
+                placeholder="SomeUser@gmail.com"
+              />
             </View>
             <View style={styles.inlineView}>
               <View style={styles.viewfont}>
@@ -60,10 +83,11 @@ class SignUp extends Component {
               </View>
               <TextInput
                 style={styles.inputfield}
-                onChangeText={(password) => this.setState({ password })}
-                placeholder='*********'
+                onChangeText={password => this.setState({ password })}
+                placeholder="*********"
                 value={this.state.password}
-                secureTextEntry={true} />
+                secureTextEntry
+              />
             </View>
             <View style={styles.inlineView}>
               <View style={styles.viewfont}>
@@ -72,8 +96,9 @@ class SignUp extends Component {
               <TextInput
                 style={styles.inputfield}
                 value={this.state.name}
-                onChangeText={(name) => this.setState({ name })}
-                placeholder='First Name' />
+                onChangeText={name => this.setState({ name })}
+                placeholder="First Name"
+              />
             </View>
             <View style={styles.inlineView}>
               <View style={styles.viewfont}>
@@ -82,39 +107,39 @@ class SignUp extends Component {
               <TextInput
                 style={styles.inputfield}
                 value={this.state.lname}
-                onChangeText={(lname) => this.setState({ lname })}
-                placeholder='Last Name' />
+                onChangeText={lname => this.setState({ lname })}
+                placeholder="Last Name"
+              />
             </View>
-            <View>
-            </View>
+            <View />
             <TouchableOpacity onPress={() => this.createUser()}>
 
               <Text style={styles.createAccount}>
                 Create Account
-          </Text>
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.alreadyUser()} >
+            <TouchableOpacity onPress={() => this.alreadyUser()}>
               <Text style={styles.signinbtn}>
                 Already have an Account
-            </Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
     );
   }
-  createUser() {
 
-    if (this.state.email == '' || this.state.lname == '' ||
-      this.state.password == '' || this.state.name == '') {
-      alert('empty Value Not allowed')
-    }
-    else {
+  createUser() {
+    if (this.state.email === '' || this.state.lname === ''
+      || this.state.password === '' || this.state.name === '') {
+      alert('empty Value Not allowed');
+    } else {
       this.props.SignUpSave(this.state);
       const { navigate } = this.props.navigation;
       navigate('logIn');
     }
   }
+
   alreadyUser() {
     const { navigate } = this.props.navigation;
     navigate('logIn');
@@ -122,17 +147,14 @@ class SignUp extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-
   return bindActionCreators(Actions, dispatch);
 }
 function mapStateToProps(state) {
-  
   const ReducerSettings = state.ReducerSettings;
   return {
     appColor: ReducerSettings.appColor
 
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-
