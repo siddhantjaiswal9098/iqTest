@@ -1,5 +1,6 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import scale from './../../utils/scale.js'
+import scale from '../../utils/scale';
+
 const { height, width } = Dimensions.get('window');
 
 
@@ -47,18 +48,17 @@ module.exports = StyleSheet.create({
         right: 0,
         width: scale(30),
         bottom: 0,
-        zIndex: 5000,
+        zIndex: 5,
         justifyContent: 'center'
     },
     TestIdView: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: scale(20)
+        paddingHorizontal: scale(20),
     },
     TestIdText: {
         fontSize: scale(24),
-        paddingVertical: scale(20),
         color: 'white',
         fontWeight: 'bold',
     },
@@ -124,23 +124,31 @@ module.exports = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: scale(10),
-        zIndex: 5000,
+        zIndex: 5,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        
+    },
+    takeAnotherTestView2: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: scale(50),
+        zIndex: 5,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         
     },
     takeAnotherTestText: {
-        backgroundColor: '#cccccc',
-        margin: scale(10),
-        padding: scale(10),
+        backgroundColor: '#FFF',
+        padding: scale(5),
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: scale(10),
     },
     headerView: {
         flexDirection: 'row',
-        marginBottom: scale(20),
         backgroundColor: '#61abea',
         justifyContent: 'center',
         alignItems: 'center',
@@ -157,7 +165,6 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         left: scale(10),
         position: 'absolute',
-        padding : scale(10)
-        
+        padding : scale(10)     
     },
 });

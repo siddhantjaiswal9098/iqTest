@@ -15,6 +15,7 @@ import styles from './style';
 
 const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
 const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
+const GameIcon = (<IconMenu name="game-controller" size={30} color="#fff" />);
 const FeedbackIcon2 = (<FeedbackIcon name="chat" size={50} color="#fff" />);
 const { height, width } = Dimensions.get('window');
 class Home extends Component {
@@ -104,6 +105,10 @@ class Home extends Component {
             <TouchableOpacity onPress={() => { this.setState({ ModalClose: true }); }} style={styles.headerLogout}>
               {Icon2}
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('GameComponent')} style={[styles.headerLogout, { right: scale(40) }]}>
+              {GameIcon}
+            </TouchableOpacity>
+            {/* game-controller */}
           </View>
           {/* <FlatList
                     data={this.state.dataForListTest}

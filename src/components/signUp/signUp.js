@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import {
-  ScrollView, StyleSheet, Text, Dimensions, RadioButton, View, TouchableOpacity, Image, TextInput
+  ScrollView, Text, View, TouchableOpacity, Image, TextInput, Alert
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
-import { NavigationActions, StackActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
 
-const { height, width } = Dimensions.get('window');
 const userIcon = (<Icon name="user-o" size={30} color="#000" />);
 const lockIcon = (<Icon1 name="lock" size={30} color="#000" />);
-const circleimg = (<Icon2 name="plus" size={30} color="#fff" />);
 
 
 class SignUp extends Component {
@@ -49,7 +45,7 @@ class SignUp extends Component {
   render() {
     let open = require('./../../assets/logo.jpg');
     if (this.state.imageURI) {
-     // console.log(this.state.imageURI.path, 'Hello');
+      // console.log(this.state.imageURI.path, 'Hello');
       open = { uri: this.state.imageURI.path };
     }
     return (
@@ -132,7 +128,7 @@ class SignUp extends Component {
   createUser() {
     if (this.state.email === '' || this.state.lname === ''
       || this.state.password === '' || this.state.name === '') {
-      alert('empty Value Not allowed');
+      Alert.alert('empty Value Not allowed');
     } else {
       this.props.SignUpSave(this.state);
       const { navigate } = this.props.navigation;
