@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, ActivityIndicator, StyleSheet, View, WebView
+  Dimensions, ActivityIndicator, StyleSheet, WebView, SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions/commonAction';
+import HeaderComponent from '../header/headerComponent';
 import scale from '../../utils/scale';
 
 const { height, width } = Dimensions.get('window');
@@ -26,7 +27,8 @@ class Feedback extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <HeaderComponent navigationFromPage={this.props.navigation} headerText="Tutorial" />
         <WebView
           source={{ uri: 'https://www.youtube.com/watch?v=tnc9ojITRg4&list=PLpyc33gOcbVA4qXMoQ5vmhefTruk5t9lt' }}
           onLoad={() => this.hideSpinner()}
@@ -37,7 +39,7 @@ class Feedback extends Component {
             size="large"
           />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 }

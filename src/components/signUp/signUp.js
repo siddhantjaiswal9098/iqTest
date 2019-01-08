@@ -37,7 +37,7 @@ class SignUp extends Component {
       height: 400,
       cropping: true
     }).then((imageURI) => {
-      console.log(imageURI);
+      console.log('hello', imageURI);
       this.setState({ imageURI });
     });
   }
@@ -146,7 +146,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch);
 }
 function mapStateToProps(state) {
-  const ReducerSettings = state.ReducerSettings;
+  const { ReducerSettings } = state;
   return {
     appColor: ReducerSettings.appColor
 

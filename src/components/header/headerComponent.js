@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity,
+  StyleSheet, Text, TouchableOpacity, SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,14 +19,13 @@ class Feedback extends Component {
 
   render() {
     return (
-      <View style={[styles.headerView, { backgroundColor: this.props.appColor }]}>
+      <SafeAreaView style={[styles.headerView, { backgroundColor: this.props.appColor }]}>
         <Text style={styles.headerText}>{this.props.headerText}</Text>
-
         <TouchableOpacity onPress={() => this.props.navigationFromPage.goBack()} style={styles.backBtnChat}>
           {BackIcon2}
           <Text />
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -48,7 +47,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
 const styles = StyleSheet.create({
   headerView: {
     flexDirection: 'row',
-    marginBottom: scale(20),
+    // marginBottom: scale(20),
     backgroundColor: '#61abea',
     justifyContent: 'center',
     alignItems: 'center',

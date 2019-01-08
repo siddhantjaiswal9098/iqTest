@@ -1,5 +1,6 @@
-import { Platform, StyleSheet } from 'react-native';
-import scale from './../../utils/scale.js';
+/* eslint-disable no-undef */
+import { StyleSheet } from 'react-native';
+import scale from '../../utils/scale';
 
 
 module.exports = StyleSheet.create({

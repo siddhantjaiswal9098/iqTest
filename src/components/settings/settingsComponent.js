@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import ImagePicker from 'react-native-image-crop-picker';
+import HeaderComponent from '../header/headerComponent';
 import styles from './styles';
 import * as Actions from '../../actions/commonAction';
 import scale from '../../utils/scale';
@@ -19,7 +20,6 @@ const userIcon2 = (<Icon2 name="chat" size={30} color="#fff" />);
 const userIcon3 = (<Icon3 name="notifications-active" size={30} color="#fff" />);
 const userIcon4 = (<Icon2 name="help" size={30} color="#fff" />);
 const userIcon5 = (<Icon5 name="ios-color-fill" size={30} color="#fff" />);
-const BackIcon2 = (<Icon5 name="md-arrow-back" size={30} color="#fff" />);
 const textMax = 300;
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 class SettingsComponent extends Component {
@@ -87,14 +87,7 @@ class SettingsComponent extends Component {
       console.log('))))', this.props.appColor);
       return (
         <SafeAreaView style={[styles.container, { backgroundColor: this.props.appColor }]}>
-          <View style={[styles.headerView, { backgroundColor: this.counter < 60 ? 'red' : this.props.appColor }]}>
-
-            <Text style={styles.headerText}>Settings</Text>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtnChat}>
-              {BackIcon2}
-              <Text />
-            </TouchableOpacity>
-          </View>
+          <HeaderComponent navigationFromPage={this.props.navigation} headerText="Settings" />
           <View style={styles.avatarContainer}>
             <TouchableOpacity onPress={() => this.openGallery()}>
               <Image

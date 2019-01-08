@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, SafeAreaView, BackHandler, Modal, Dimensions, TouchableOpacity, Image
+  Text, View, SafeAreaView, BackHandler, Modal, Dimensions, TouchableOpacity, Image, Animated, Easing
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMenu from 'react-native-vector-icons/Entypo';
@@ -25,11 +25,37 @@ class Home extends Component {
 
     constructor(props) {
       super(props);
+      this.animatedValue = new Animated.Value(0);
+      this.animatedValue2 = new Animated.Value(0);
       this.state = {
         dataForListTest: this.props.AllTestDetail,
         ModalClose: false,
         exitModal: false,
       };
+    }
+
+    animate() {
+      this.animatedValue.setValue(0);
+      Animated.timing(
+        this.animatedValue,
+        {
+          toValue: 1,
+          duration: 100,
+          easing: Easing.linear
+        }
+      ).start(() => this.animate());
+    }
+
+    animate2() {
+      this.animatedValue2.setValue(0);
+      Animated.timing(
+        this.animatedValue2,
+        {
+          toValue: 1,
+          duration: 100,
+          easing: Easing.linear
+        }
+      ).start();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -71,6 +97,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+      this.animate();
       this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress));
       this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload => BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress));
     }
@@ -90,6 +117,18 @@ class Home extends Component {
     }
 
     render() {
+      // const height1 = this.animatedValue.interpolate({
+      //   inputRange: [0, 0.5, 1],
+      //   outputRange: [scale(0), scale(2), scale(0)]
+      // });
+      // const width1 = this.animatedValue.interpolate({
+      //   inputRange: [0, 1],
+      //   outputRange: [0, 50]
+      // });
+      // const rotateX = this.animatedValue.interpolate({
+      //   inputRange: [0, 0.5, 1],
+      //   outputRange: ['0deg', '180deg', '0deg']
+      // });
       return (
 
         <SafeAreaView style={styles.container}>
@@ -105,10 +144,11 @@ class Home extends Component {
             <TouchableOpacity onPress={() => { this.setState({ ModalClose: true }); }} style={styles.headerLogout}>
               {Icon2}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('GameComponent')} style={[styles.headerLogout, { right: scale(40) }]}>
-              {GameIcon}
+            <TouchableOpacity style={[styles.headerLogout, { right: scale(40) }]} onPress={() => this.props.navigation.navigate('GameComponent')}>
+              <Animated.View>
+                {GameIcon}
+              </Animated.View>
             </TouchableOpacity>
-            {/* game-controller */}
           </View>
           {/* <FlatList
                     data={this.state.dataForListTest}
@@ -140,7 +180,7 @@ class Home extends Component {
             }}
             onPress={() => this.feedBackBtn()}
           >
-            <View style={{ marginTop: 5 }}>{FeedbackIcon2}</View>
+            <Animated.View style={{ marginTop: 5 }}>{FeedbackIcon2}</Animated.View>
           </TouchableOpacity>
           {
                     this.state.ModalClose
@@ -230,9 +270,17 @@ class Home extends Component {
 
     itemClicked(item) {
       // console.log('Item ', item.id)
-      const items = item.id;
-      this.props.ApiCallForTest(items);
-      this.props.navigation.navigate('TestPage', { items });
+      this.setState({ itemSelected: item });
+      const inter = setInterval(() => {
+        this.animate2();
+      }, 100);
+
+      setTimeout(() => {
+        const items = item.id;
+        this.props.ApiCallForTest(items);
+        this.props.navigation.navigate('TestPage', { items });
+        clearInterval(inter);
+      }, 1000);
     }
 
     // renderRow(item) {
@@ -255,21 +303,29 @@ class Home extends Component {
     // }
 
     _renderRow(item) {
+      const width1 = this.animatedValue2.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [scale(-37), scale(-28), scale(-37)]
+      });
       return (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => this.itemClicked(item)}
-          style={{
-            marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'white', flex: 1
-          }}
+        <Animated.View style={[this.state.itemSelected === item ? {
+          position: 'absolute', top: width1, bottom: 0, left: 0, right: 0,
+        } : { }]}
         >
-          <Image
-            style={{ width: 50, height: 50, borderRadius: 25 }}
-            source={require('./../../assets/logo.jpg')}
-          />
-
-          <Text numberOfLines={1} style={{ width: 200, fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => this.itemClicked(item)}
+            style={{
+              marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'white', flex: 1
+            }}
+          >
+            <Animated.Image
+              style={{ width: 50, height: 50, borderRadius: 25 }}
+              source={require('./../../assets/logo.jpg')}
+            />
+            <Text numberOfLines={1} style={{ width: 200, fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+          </TouchableOpacity>
+        </Animated.View>
       );
     }
 }

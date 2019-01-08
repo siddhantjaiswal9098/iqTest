@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import HeaderComponent from '../header/headerComponent';
 import * as Actions from '../../actions/commonAction';
 import scale from '../../utils/scale';
 
@@ -36,13 +37,17 @@ class HelpComponent extends Component {
     }
     return (
       <View style={styles.container}>
+        <HeaderComponent navigationFromPage={this.props.navigation} headerText="iqTest" />
         <WebView
           source={URI}
-          style={{ marginTop: 20, marginBottom: 20 }}
+          style={{ marginBottom: 20 }}
           onLoad={() => this.hideSpinner()}
         />
         {this.state.visible && (
-        <View style={{ position: 'absolute', height, backgroundColor: 'rgba(0,0,0,0.2)', width }}>
+        <View style={{
+          height, position: 'absolute', backgroundColor: 'rgba(0,0,0,0.2)', width
+        }}
+        >
           <ActivityIndicator
             style={{ position: 'absolute', top: height / 2 - scale(60), left: width / 2 - scale(20) }}
             size="large"

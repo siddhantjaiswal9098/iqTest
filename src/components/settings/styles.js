@@ -1,12 +1,13 @@
-import { Platform, StyleSheet } from 'react-native';
-import scale from './../../utils/scale.js';
+/* eslint-disable no-undef */
+import { StyleSheet } from 'react-native';
+import scale from '../../utils/scale';
 
 
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#61abea'
-  },  
+  },
   menu: {
     flex: 1,
     width: window.width,
@@ -66,45 +67,45 @@ module.exports = StyleSheet.create({
     left: scale(80),
     flexDirection: 'row'
   },
-modalViewContainer:{ 
-    flex: 1, 
+  modalViewContainer: {
+    flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center', 
-    alignItems: 'center' 
-},
-modalViewContainer2:{ 
-    height: scale(230), 
-    backgroundColor: 'white', 
-    opacity: 1, 
-    width: scale(200), 
-    borderWidth: .5, 
-    borderColor: 'black', 
-    borderRadius: scale(10) 
-},
-closeModal:{
-      position: 'absolute',
-      right: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalViewContainer2: {
+    height: scale(230),
+    backgroundColor: 'white',
+    opacity: 1,
+    width: scale(200),
+    borderWidth: 0.5,
+    borderColor: 'black',
+    borderRadius: scale(10)
+  },
+  closeModal: {
+    position: 'absolute',
+    right: 10,
 
-    },
-    okCancelView:{
-         flexDirection: 'row',
-         paddingHorizontal: scale(40),
-          paddingVertical: scale(30),
-          justifyContent: 'center',
-          alignItems: 'center'
-         },
-         headerText: {
-          fontSize: scale(28),
-          color: 'white',
-          fontWeight: 'bold',
-      },
-    backBtnChat:{   
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'row',
-      left: scale(10),
-      position: 'absolute',
-      padding : scale(10)
+  },
+  okCancelView: {
+    flexDirection: 'row',
+    paddingHorizontal: scale(40),
+    paddingVertical: scale(30),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerText: {
+    fontSize: scale(28),
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  backBtnChat: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    left: scale(10),
+    position: 'absolute',
+    padding: scale(10)
   },
   headerView: {
     flexDirection: 'row',
@@ -113,5 +114,5 @@ closeModal:{
     justifyContent: 'center',
     alignItems: 'center',
     padding: scale(10)
-},
+  },
 });

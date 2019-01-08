@@ -33,7 +33,7 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     right: scale(10),
-    position: 'absolute'
+    position: 'absolute',
   },
   MenuBtnHome: {
     alignItems: 'center',

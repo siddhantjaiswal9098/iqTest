@@ -7,12 +7,10 @@ import { bindActionCreators } from 'redux';
 import Carousel from 'react-native-snap-carousel';
 import RadioGroup from 'react-native-radio-buttons-group';
 import IconCoro from 'react-native-vector-icons/AntDesign';
-import BackIcon from 'react-native-vector-icons/Ionicons';
 import scale from '../../utils/scale';
+import HeaderComponent from '../header/headerComponent';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
-
-const BackIcon2 = (<BackIcon name="md-arrow-back" size={30} color="#fff" />);
 
 const IconNext = (<IconCoro name="right" size={scale(25)} color="#000" />);
 const IconPrev = (<IconCoro name="left" size={scale(25)} color="#000" />);
@@ -23,7 +21,7 @@ class TestPage extends Component {
     super(props);
     this.arrAnswers = [];
     this.timer = setInterval(() => this.setState({ textTimer: this.counter-- }), 1000);
-    this.counter = 69;
+    this.counter = 300;
     this.animatedValue = new Animated.Value(0);
     this.state = {
       id: this.props.navigation.state.params.items,
@@ -179,14 +177,10 @@ class TestPage extends Component {
       return (
       // <SafeAreaView style={[styles.container,{backgroundColor: this.counter<60?this.counter%2==0?'red':'#61abea': '#61abea'}]}>
         <SafeAreaView style={[styles.container, { backgroundColor: this.props.appColor }]}>
-          <View style={[styles.headerView, { backgroundColor: this.props.appColor }]}>
-            <Text style={styles.headerText}>iqTest</Text>
-
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backBtnChat}>
-              {BackIcon2}
-              <Text />
-            </TouchableOpacity>
-          </View>
+          <HeaderComponent navigationFromPage={this.props.navigation} headerText={`Test: ${this.state.id}`} />
+          <Text style={[styles.TextTimer, { color: this.counter < 60 ? 'red' : 'white' }]}>
+            {this.timeFormatter(this.state.textTimer)}
+          </Text>
           <Image
             style={styles.imageBackground}
             source={require('./../../assets/logo.jpg')}
@@ -200,16 +194,6 @@ class TestPage extends Component {
             <TouchableOpacity onPress={() => this._carousel.snapToNext()}>
               {IconNext}
             </TouchableOpacity>
-          </View>
-          <View style={styles.TestIdView}>
-            <Text style={styles.TestIdText}>
-                        Test No. :-
-              {' '}
-              {this.state.id}
-            </Text>
-            <Text style={[styles.TextTimer, { color: this.counter < 60 ? 'red' : 'white' }]}>
-              {this.timeFormatter(this.state.textTimer)}
-            </Text>
           </View>
           <Carousel
             style={{ flex: 1 }}

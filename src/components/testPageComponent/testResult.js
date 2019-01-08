@@ -12,7 +12,7 @@ import scale from '../../utils/scale';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const TakeTestIcon2 = (<TakeTestIcon name="certificate" size={scale(30)} color="#111E6C" />);
 const GenerateCert2 = (<GenerateCert name="home" size={scale(30)} color="#cccccc" />);
 const userIcon = (<Icon name="checkcircle" size={scale(27)} color="green" />);
@@ -97,76 +97,32 @@ class testResult extends Component {
           source={require('./../../assets/logo.jpg')}
         />
         {/* <Text style={{ fontSize: scale(30), color: 'white' }}>Result :- {this.state.marks}/{this.state.totalQues}</Text> */}
-        <Text style={{ fontSize: scale(30), color: 'white' }}>
-Result :-
-          {' '}
-          {percentage > 50 ? 'PASS' : 'FAIL'}
-        </Text>
-        <Text style={{ fontSize: scale(30), color: 'white' }}>
-percentage :-
-          {' '}
-          {percentage}
-%
-        </Text>
+        <View style={{ flexDirection: 'row', width, justifyContent: 'space-around' }}>
+          <Text style={{ fontSize: scale(20), color: 'white' }}>
+            Result:
+            <Text style={{ color: percentage ? 'white' : 'red' }}>
+              {percentage > 50 ? ' PASS' : ' FAIL'}
+            </Text>
+          </Text>
+          <Text style={{ fontSize: scale(20), color: 'white' }}>
+            percentage:
+            <Text style={{ color: percentage ? 'white' : 'red' }}>
+              {' '}
+              {percentage}
+              %
+            </Text>
+          </Text>
+        </View>
         <FlatList
           data={this.state.answerKey}
           renderItem={({ item, index }) => this.renderRow(item, index)
           }
           keyExtractor={(item, index) => index.toString()}
         />
-        {/* <View style={styles.takeAnotherTestView}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-            <View style={styles.takeAnotherTestText}>
-              {GenerateCert2}
-              <Text style={{ fontSize: scale(12) }}>
-                {' '}
-Take another test.
-
-              </Text>
-
-            </View>
-          </TouchableOpacity>
-          <View style={styles.takeAnotherTestView2}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('TutorialComponent')}>
-              <View style={styles.takeAnotherTestText}>
-                {GenerateCert2}
-                <Text style={{ fontSize: scale(12) }}>
-                  {' '}
-Tutorials
-
-                </Text>
-
-              </View>
-            </TouchableOpacity>
-          </View>
-          {
-            percentage >= 0
-              ? (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate', percentage = { percentage })}>
-                  <View style={styles.takeAnotherTestText}>
-                    {TakeTestIcon2}
-                    <Text style={{ fontSize: scale(12) }}>
-                      {' '}
-Generate Certificate
-
-                    </Text>
-
-                  </View>
-                </TouchableOpacity>
-              )
-              : (
-                <TouchableOpacity onPress={() => Alert.alert('You have failed the Test.')}>
-                  <View style={styles.takeAnotherTestText}>
-                    {TakeTestIcon2}
-                    <Text style={{ fontSize: scale(12) }}>
-            Generate Certificate
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )
-          }
-        </View> */}
-        <View style={{ flexDirection: 'row', backgroundColor: '#FFF', width, justifyContent: 'space-around' }}>
+        <View style={{
+          flexDirection: 'row', backgroundColor: '#FFF', width, justifyContent: 'space-around'
+        }}
+        >
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
             <View style={styles.takeAnotherTestText}>
               {GenerateCert2}
@@ -178,7 +134,7 @@ Generate Certificate
             </View>
           </TouchableOpacity>
           {
-            percentage >= 0
+            percentage >= 50
               ? (
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate', percentage = { percentage })}>
                   <View style={styles.takeAnotherTestText}>

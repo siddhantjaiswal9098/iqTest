@@ -21,15 +21,15 @@ export default createStackNavigator({
   Signup: { screen: Signup, navigationOptions: { header: null, } },
   logIn: { screen: logIn, navigationOptions: { header: null, } },
   Home: { screen: Home, navigationOptions: { header: null } },
-  Feedback: { screen: Feedback, navigationOptions: { title: 'Feedback' } },
+  Feedback: { screen: Feedback, navigationOptions: { header: null } },
   TestPage: { screen: TestPage, navigationOptions: { header: null, }, },
   testResult: { screen: testResult, navigationOptions: { header: null, }, },
   Certificate: { screen: Certificate, navigationOptions: { header: null, }, },
   ChattingHome: { screen: ChattingHome, navigationOptions: { header: null, }, },
   ChatPage: { screen: ChatPage, navigationOptions: { header: null, }, },
   SettingsComponent: { screen: SettingsComponent, navigationOptions: { header: null, }, },
-  HelpComponent: { screen: HelpComponent },
-  TutorialComponent: { screen: TutorialComponent },
+  HelpComponent: { screen: HelpComponent, navigationOptions: { header: null, }, },
+  TutorialComponent: { screen: TutorialComponent, navigationOptions: { header: null, }, },
   GameComponent: { screen: GameComponent, navigationOptions: { header: null, }, },
 
 });

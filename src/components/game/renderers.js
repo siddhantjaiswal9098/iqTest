@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  StyleSheet, Alert, Image
+  StyleSheet, Image
 } from 'react-native';
 
 let fingure1 = false;

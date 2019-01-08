@@ -27,7 +27,7 @@ class SplashScreen extends Component {
     setTimeout(() => {
       // console.log("Props",this.props.data);
       let toRoute = 'Signup';
-      if (this.props.data.length != 0) {
+      if (this.props.data.length !== 0) {
         toRoute = 'Home';
       }
       // console.log('^^^^^^^',this.props.data);
@@ -76,11 +76,6 @@ class SplashScreen extends Component {
     const bottom = this.animatedValue.interpolate({
       inputRange: [0, 1],
       outputRange: [scale(1000), 0]
-    });
-    const left = this.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [scale(1000), 0]
-
     });
     const rotateX = this.animatedValue2.interpolate({
       inputRange: [0, 0.5, 1],
@@ -134,7 +129,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch);
 }
 function mapStateToProps(state) {
-  const ReducerSignup = state.ReducerSignup;
+  const { ReducerSignup } = state;
   return {
     data: ReducerSignup.data
 
