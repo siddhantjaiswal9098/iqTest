@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {
-  Text, View, SafeAreaView, BackHandler, Modal, Dimensions, TouchableOpacity, Image, Animated, Easing
+  Text, View, SafeAreaView, FlatList, BackHandler, Modal, Dimensions, TouchableOpacity, Image, Animated, Easing
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import IconRightAns from 'react-native-vector-icons/AntDesign';
 import IconMenu from 'react-native-vector-icons/Entypo';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import FeedbackIcon from 'react-native-vector-icons/MaterialIcons';
 import GridView from 'react-native-super-grid';
+import * as Animatable from 'react-native-animatable';
 import scale from '../../utils/scale';
 import * as Actions from '../../actions/commonAction';
 import styles from './style';
 
+const RightAns = (<IconRightAns name="checkcircle" size={scale(20)} color="#3CB371" />);
 const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
 const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
 const GameIcon = (<IconMenu name="game-controller" size={30} color="#fff" />);
@@ -31,6 +34,7 @@ class Home extends Component {
         dataForListTest: this.props.AllTestDetail,
         ModalClose: false,
         exitModal: false,
+        TestResult: this.props.TestResult
       };
     }
 
@@ -76,6 +80,10 @@ class Home extends Component {
       if (this.props.AllTestDetail !== nextProps.AllTestDetail) {
         this.setState({ dataForListTest: nextProps.AllTestDetail });
       }
+      if (nextProps.TestResult !== this.state.TestResult) {
+        this.setState({ TestResult: nextProps.TestResult });
+      }
+      console.log('PROPSNEXT', nextProps.TestResult);
     }
 
     logOutClick() {
@@ -90,6 +98,7 @@ class Home extends Component {
       navigation.dispatch(resetAction);
       this.setState({ ModalClose: false });
       this.props.signOutClicked();
+      this.props.signOutClickRemoveResult();
     }
 
     feedBackBtn() {
@@ -97,6 +106,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+      console.log('Test results at Home', this.props.TestResult);
       this.animate();
       this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress));
       this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload => BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress));
@@ -144,18 +154,18 @@ class Home extends Component {
             <TouchableOpacity onPress={() => { this.setState({ ModalClose: true }); }} style={styles.headerLogout}>
               {Icon2}
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.headerLogout, { right: scale(40) }]} onPress={() => this.props.navigation.navigate('GameComponent')}>
+            <TouchableOpacity style={[styles.headerLogout, { right: scale(50) }]} onPress={() => this.props.navigation.navigate('GameComponent')}>
               <Animated.View>
                 {GameIcon}
               </Animated.View>
             </TouchableOpacity>
           </View>
           {/* <FlatList
-                    data={this.state.dataForListTest}
-                    renderItem={({ item }) => this.renderRow(item)
+            data={this.state.dataForListTest}
+            renderItem={({ item }) => this._renderRow(item)
                     }
-                    keyExtractor={(item, index) => index.toString()}
-                /> */}
+            keyExtractor={(item, index) => index.toString()}
+          /> */}
           <GridView
             itemDimension={width / 2 - 30}
             items={this.state.dataForListTest}
@@ -280,7 +290,7 @@ class Home extends Component {
         this.props.ApiCallForTest(items);
         this.props.navigation.navigate('TestPage', { items });
         clearInterval(inter);
-      }, 1000);
+      }, 300);
     }
 
     // renderRow(item) {
@@ -307,25 +317,41 @@ class Home extends Component {
         inputRange: [0, 0.5, 1],
         outputRange: [scale(-37), scale(-28), scale(-37)]
       });
+      let passed = false;
+      let percentageValue = '';
+      this.state.TestResult.map((obj) => {
+        // console.log('Hello there', obj);
+        if (item.id === obj.TestId) {
+          passed = true;
+          percentageValue = obj.percentage;
+        }
+      });
+      // console.log('REnder of thr home', item.id, this.state.TestResult.TestId);
       return (
-        <Animated.View style={[this.state.itemSelected === item ? {
-          position: 'absolute', top: width1, bottom: 0, left: 0, right: 0,
-        } : { }]}
+        <Animatable.View
+          animation={this.state.itemSelected === item ? 'pulse' : ''}
+          iterationCount={this.state.itemSelected === item ? 1 : 0}
+          direction={this.state.itemSelected === item ? 'alternate' : ''}
+          duration={this.state.itemSelected === item ? 300 : 0}
         >
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => this.itemClicked(item)}
             style={{
-              marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'white', flex: 1
+              marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'white', flex: 1,
             }}
           >
             <Animated.Image
               style={{ width: 50, height: 50, borderRadius: 25 }}
               source={require('./../../assets/logo.jpg')}
             />
-            <Text numberOfLines={1} style={{ width: 200, fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+            <Text numberOfLines={1} style={{ width: scale(70), fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center', height: 50 }}>
+              {passed ? RightAns : <View />}
+              {passed ? <Text>{`${percentageValue}%`}</Text> : <View />}
+            </View>
           </TouchableOpacity>
-        </Animated.View>
+        </Animatable.View>
       );
     }
 }
@@ -338,12 +364,14 @@ function mapStateToProps(state) {
   const { ReducerSignup } = state;
   const { ReducerMenu } = state;
   const { ReducerSettings } = state;
+  const { ReducerResult } = state;
   return {
     data: ReducerSignup.data,
     AllTestDetail: ReducerSignup.AllTestDetail,
     navigateToChat: ReducerMenu.navigateToChat,
     navigateScreen: ReducerMenu.navigateScreen,
-    appColor: ReducerSettings.appColor
+    appColor: ReducerSettings.appColor,
+    TestResult: ReducerResult.TestResult
 
   };
 }

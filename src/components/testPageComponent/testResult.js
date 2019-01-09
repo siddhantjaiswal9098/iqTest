@@ -25,6 +25,7 @@ class testResult extends Component {
 
 
     this.state = {
+      TestId: this.props.navigation.state.params.testId,
       email: this.props.data.email,
       password: this.props.data.password,
       name: '',
@@ -49,7 +50,31 @@ class testResult extends Component {
         }
       });
     });
-    this.setState({ marks });
+    const value = (marks / this.state.totalQues) * 100;
+    const percentage = Math.round(value * 100) / 100;
+    this.setState({ marks, percentage });
+  }
+
+  componentDidMount() {
+    // console.log("DOnde with it2", this.state.percentage, this.state.TestId,  this.props.TestResult);
+    const PassedResultVal = {
+      percentage: this.state.percentage,
+      TestId: this.state.TestId
+    };
+    let good = true;
+    const NewArrResult = this.props.TestResult;
+    NewArrResult.map((obj) => {
+      if (obj.TestId === PassedResultVal.TestId) {
+        console.log('already passed');
+        good = false;
+      }
+    });
+    if (good && PassedResultVal.percentage >= 50) {
+      NewArrResult.push(PassedResultVal);
+      const deepCopy = Array.from(NewArrResult);
+      console.log('DOnde with it2', NewArrResult);
+      this.props.TestResultPass(deepCopy);
+    }
   }
 
   renderRow(item, index) {
@@ -88,8 +113,10 @@ class testResult extends Component {
 
   render() {
     // console.log("this.state.answerKey", this.state.answerKey)
-    const value = (this.state.marks / this.state.totalQues) * 100;
-    let percentage = Math.round(value * 100) / 100;
+
+    // if(percentage>=50){
+    //   TestResultPass()
+    // }
     return (
       <SafeAreaView style={[styles.container2, { backgroundColor: this.props.appColor }]}>
         <Image
@@ -100,15 +127,15 @@ class testResult extends Component {
         <View style={{ flexDirection: 'row', width, justifyContent: 'space-around' }}>
           <Text style={{ fontSize: scale(20), color: 'white' }}>
             Result:
-            <Text style={{ color: percentage ? 'white' : 'red' }}>
-              {percentage > 50 ? ' PASS' : ' FAIL'}
+            <Text style={{ color: this.state.percentage ? 'white' : 'red' }}>
+              {this.state.percentage > 50 ? ' PASS' : ' FAIL'}
             </Text>
           </Text>
           <Text style={{ fontSize: scale(20), color: 'white' }}>
             percentage:
-            <Text style={{ color: percentage ? 'white' : 'red' }}>
+            <Text style={{ color: this.state.percentage ? 'white' : 'red' }}>
               {' '}
-              {percentage}
+              {this.state.percentage}
               %
             </Text>
           </Text>
@@ -134,9 +161,9 @@ class testResult extends Component {
             </View>
           </TouchableOpacity>
           {
-            percentage >= 50
+            this.state.percentage >= 0
               ? (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate', percentage = { percentage })}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate', { percentage: this.state.percentage })}>
                   <View style={styles.takeAnotherTestText}>
                     {TakeTestIcon2}
                   </View>
@@ -178,11 +205,13 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   const { ReducerSignup } = state;
   const { ReducerSettings } = state;
+  const { ReducerResult } = state;
   return {
     data: ReducerSignup.data,
     answerKey: ReducerSignup.answerKey,
     userAnswer: ReducerSignup.userAnswer,
-    appColor: ReducerSettings.appColor
+    appColor: ReducerSettings.appColor,
+    TestResult: ReducerResult.TestResult
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(testResult);

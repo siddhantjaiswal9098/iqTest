@@ -40,6 +40,7 @@ class Certificate extends Component {
     }
 
     componentDidMount() {
+      console.log('Done with it99', this.props.TestResult);
       BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
       // console.log('Siddhant', this.props.navigation.state.params.percentage)
 
@@ -190,8 +191,10 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
   const { ReducerSignup } = state;
+  const { ReducerResult } = state;
   return {
-    data: ReducerSignup.data
+    data: ReducerSignup.data,
+    TestResult: ReducerResult.TestResult
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Certificate);

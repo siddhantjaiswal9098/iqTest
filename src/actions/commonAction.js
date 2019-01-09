@@ -1,7 +1,6 @@
 export function SignUpSave(data) {
   return ({ type: 'SAVE', data });
 }
-
 export function ApiCallForTest(id) {
   return ({ type: 'API_REST', id });
 }
@@ -34,4 +33,10 @@ export function loginClickAction(data) {
 }
 export function ChangeAppColorAction(data) {
   return ({ type: 'APP_COLOR', data });
+}
+export function TestResultPass(data) {
+  return ({ type: 'PASSED', data });
+}
+export function signOutClickRemoveResult(data) {
+  return ({ type: 'SIGN_OUT_REMOVE_RESULT', data });
 }

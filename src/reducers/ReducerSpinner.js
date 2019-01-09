@@ -7,6 +7,7 @@ export default ReducerSpinner = (state = initialstate, action) => {
   // console.log("State",state)
   switch (action.type) {
     case 'START_SPINNER':
+    console.log("%%%%%%%%%%STARTReducer");
       return {
         ...state,
         spinnerData: true

@@ -166,7 +166,7 @@ class TestPage extends Component {
         setTimeout(() => {
           Alert.alert('TimeOut');
         }, 1000);
-        this.props.navigation.navigate('testResult');
+        this.props.navigation.navigate('testResult', { testId: this.props.navigation.state.params.items });
       }
     }
 
@@ -276,7 +276,7 @@ class TestPage extends Component {
     submitAns() {
       this.props.SaveResult(this.state.data, this.arrAnswers);
       clearInterval(this.timer);
-      this.props.navigation.navigate('testResult');
+      this.props.navigation.navigate('testResult', { testId: this.props.navigation.state.params.items });
       this.setState({ modalVisible: !this.state.modalVisible });
     }
 }

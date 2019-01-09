@@ -46,8 +46,7 @@ export default ReducerSignup = (state = initialstate, action) => {
         dataApiTest: {},
         resultData: {},
         userAnswer: {},
-        AllTestDetail: [],
-
+        AllTestDetail: []
       };
     case 'LOGIN':
       return {
