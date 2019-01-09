@@ -14,7 +14,9 @@ import * as Animatable from 'react-native-animatable';
 import scale from '../../utils/scale';
 import * as Actions from '../../actions/commonAction';
 import styles from './style';
+import FinRealmService from '../../realm/realm';
 
+const _frealm = new FinRealmService();
 const RightAns = (<IconRightAns name="checkcircle" size={scale(20)} color="#3CB371" />);
 const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
 const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
@@ -106,6 +108,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+      _frealm.jaduWalarealm();
       console.log('Test results at Home', this.props.TestResult);
       this.animate();
       this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress));
