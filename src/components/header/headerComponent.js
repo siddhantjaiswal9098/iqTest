@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BackIcon from 'react-native-vector-icons/Ionicons';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 import * as Actions from '../../actions/commonAction';
 import scale from '../../utils/scale';
 
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     left: scale(10),
     position: 'absolute',
-    padding: scale(10)
+    padding: scale(10),
+    marginTop: getStatusBarHeight(true)
   },
 });

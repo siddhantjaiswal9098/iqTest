@@ -43,7 +43,6 @@ export function* navigateSaga(action) {
   yield put({ type: 'NAVIGATE_TO_CHAT', action });
 }
 
-
 export function* apiCallForSignUp(action) {
 //   data = {
 //     'user':{

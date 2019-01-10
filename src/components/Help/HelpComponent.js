@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, StyleSheet, WebView, ActivityIndicator, View
+  Dimensions, StyleSheet, WebView, ActivityIndicator, View, SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,7 +36,7 @@ class HelpComponent extends Component {
       URI = require('./Help.html');
     }
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <HeaderComponent navigationFromPage={this.props.navigation} headerText="iqTest" />
         <WebView
           source={URI}
@@ -54,7 +54,7 @@ class HelpComponent extends Component {
           />
         </View>
         )}
-      </View>
+      </SafeAreaView>
 
     );
   }

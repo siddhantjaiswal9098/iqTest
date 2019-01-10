@@ -1,21 +1,12 @@
 const Realm = require('realm');
 
 // Define your models and their properties
-const CarSchema = {
-  name: 'Car',
+const Result = {
+  name: 'Result',
   properties: {
-    make: 'string',
-    model: 'string',
-    miles: { type: 'int', default: 0 },
-  }
-};
-const PersonSchema = {
-  name: 'Person',
-  properties: {
-    name: 'string',
-    birthday: 'string',
-    // cars: 'Car[]',
-    // picture: 'data?' // optional property
+    percentage: 'float',
+    TestId: 'float',
+    date: 'date'
   }
 };
 
@@ -24,41 +15,31 @@ export default class FinRealmService {
     this.props = props;
   }
 
-  jaduWalarealm() {
-    Realm.open({ schema: [CarSchema, PersonSchema] })
+  Createrealm(data) {
+    console.log('Reaml obj data', data);
+    Realm.open({ schema: [Result] })
       .then((realm) => {
       // Create Realm objects and write to local storage
         realm.write(() => {
-          const myCar = realm.create('Car', {
-            make: 'Honda',
-            model: 'Civic',
-            miles: 1000,
+          const myResult = realm.create('Result', {
+            percentage: data.percentage,
+            TestId: data.TestId,
+            date: data.date
           });
-          myCar.miles += 20; // Update a property value
+          console.log('Reaml obj', myResult);
         });
-        realm.write(() => {
-          const person = realm.create('Person', {
-            name: 'Siddhant',
-            birthday: '16/05/1996',
-            // cars: ['verna', 'audi', 'bmw'],
-            
-          });
-          console.log('Realm person', person); // Update a property value
-        });
-        // // Query Realm for all cars with a high mileage
-        // const cars = realm.objects('Car').filtered('miles > 1000');
-        // // Will return a Results object with our 1 car
+        console.log('create db:', Realm.defaultPath);
         // cars.length; // => 1
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-        // Add another car
-        realm.write(() => {
-          const myCar = realm.create('Car', {
-            make: 'Ford',
-            model: 'Focus',
-            miles: 2000,
-          });
-          console.log('Realm values car1', myCar);
-        });
+  realmGetAllData(id) {
+    return Realm.open({ schema: [Result] })
+      .then((realm) => {
+        return realm.objects('Result').filtered(`TestId == ${id}`);
       })
       .catch((error) => {
         console.log(error);

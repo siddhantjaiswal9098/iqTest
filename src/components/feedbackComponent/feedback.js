@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, Alert, StyleSheet, ScrollView, Text, View, PixelRatio, TouchableOpacity, Image, TextInput
+  Dimensions, Alert, StyleSheet, ScrollView, Text, View, SafeAreaView, TouchableOpacity, Image, TextInput
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -32,7 +32,7 @@ class Feedback extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <HeaderComponent navigationFromPage={this.props.navigation} headerText="Feedback" />
         <ScrollView style={{ padding: 20 }} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
           <View>
@@ -73,7 +73,7 @@ characters remaining
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
 
     );
   }

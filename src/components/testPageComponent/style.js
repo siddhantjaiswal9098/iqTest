@@ -1,6 +1,6 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
-import scale from '../../utils/scale';
+import { StyleSheet, Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import scale from '../../utils/scale';
 
 const { height, width } = Dimensions.get('window');
 

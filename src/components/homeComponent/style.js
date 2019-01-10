@@ -73,5 +73,5 @@ module.exports = StyleSheet.create({
     paddingVertical: scale(30),
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
 });

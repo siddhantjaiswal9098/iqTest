@@ -11,7 +11,9 @@ import GenerateCert from 'react-native-vector-icons/FontAwesome5';
 import scale from '../../utils/scale';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
+import FinRealmService from '../../realm/realm';
 
+const _frealm = new FinRealmService();
 const { width } = Dimensions.get('window');
 const TakeTestIcon2 = (<TakeTestIcon name="certificate" size={scale(30)} color="#111E6C" />);
 const GenerateCert2 = (<GenerateCert name="home" size={scale(30)} color="#cccccc" />);
@@ -61,6 +63,14 @@ class testResult extends Component {
       percentage: this.state.percentage,
       TestId: this.state.TestId
     };
+    const currentDate = new Date();
+    const PassedResultVal2 = {
+      percentage: this.state.percentage,
+      TestId: this.state.TestId,
+      date: currentDate
+    };
+    _frealm.Createrealm(PassedResultVal2);
+    console.log('Test results at Home', this.props.TestResult, PassedResultVal);
     let good = true;
     const NewArrResult = this.props.TestResult;
     NewArrResult.map((obj) => {
@@ -72,7 +82,7 @@ class testResult extends Component {
     if (good && PassedResultVal.percentage >= 50) {
       NewArrResult.push(PassedResultVal);
       const deepCopy = Array.from(NewArrResult);
-      console.log('DOnde with it2', NewArrResult);
+      console.log('DOnde with it2', deepCopy);
       this.props.TestResultPass(deepCopy);
     }
   }

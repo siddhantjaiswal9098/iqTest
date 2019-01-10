@@ -17,7 +17,8 @@ import styles from './style';
 import FinRealmService from '../../realm/realm';
 
 const _frealm = new FinRealmService();
-const RightAns = (<IconRightAns name="checkcircle" size={scale(20)} color="#3CB371" />);
+const InfoIcon = (<IconMenu name="info-with-circle" size={19} color="red" />);
+const RightAns = (<IconRightAns name="checkcircle" size={scale(17)} color="#3CB371" />);
 const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
 const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
 const GameIcon = (<IconMenu name="game-controller" size={30} color="#fff" />);
@@ -108,8 +109,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-      _frealm.jaduWalarealm();
-      console.log('Test results at Home', this.props.TestResult);
       this.animate();
       this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress));
       this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload => BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress));
@@ -167,6 +166,7 @@ class Home extends Component {
             data={this.state.dataForListTest}
             renderItem={({ item }) => this._renderRow(item)
                     }
+            numColumns={2}
             keyExtractor={(item, index) => index.toString()}
           /> */}
           <GridView
@@ -349,13 +349,23 @@ class Home extends Component {
               source={require('./../../assets/logo.jpg')}
             />
             <Text numberOfLines={1} style={{ width: scale(70), fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+            
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 50 }}>
+              <TouchableOpacity onPress={() => this.resultHistoryClick(item.id)}>
+                <IconMenu name="info-with-circle" size={19} color={this.props.appColor} />
+              </TouchableOpacity>
               {passed ? RightAns : <View />}
-              {passed ? <Text>{`${percentageValue}%`}</Text> : <View />}
+              {/* {passed ? <Text>{`${percentageValue}%`}</Text> : <View />} */}
             </View>
           </TouchableOpacity>
         </Animatable.View>
       );
+    }
+
+    async resultHistoryClick(data) {
+      const dataFrom = await _frealm.realmGetAllData(data);
+      console.log('Data at compo', dataFrom);
+      this.props.navigation.navigate('Result', { dataForTestResult: dataFrom, id: data });
     }
 }
 
