@@ -3,6 +3,7 @@ package com.iqtest3;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.sbugert.rnadmob.RNAdMobPackage;
 import io.realm.react.RealmReactPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.rnfs.RNFSPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNAdMobPackage(),
             new RealmReactPackage(),
             new PickerPackage(),
            new RNFSPackage(),

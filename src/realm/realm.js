@@ -45,4 +45,15 @@ export default class FinRealmService {
         console.log(error);
       });
   }
+
+  deleteAll() {
+    Realm.open({ schema: [Result] })
+      .then((realm) => {
+        const ResultObj = realm.objects('Result');
+        realm.write(() => realm.delete(ResultObj));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 }

@@ -30,7 +30,7 @@ class HelpComponent extends Component {
     let URI = '';
     // eslint-disable-next-line no-undef
     if (!__DEV__) {
-      // code condition for IOS release if in future needed.
+      // code condition for IOS release if needed in future.
       URI = { uri: 'file:///android_asset/Help.html' };
     } else {
       URI = require('./Help.html');

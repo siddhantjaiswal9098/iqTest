@@ -12,6 +12,7 @@ import scale from '../../utils/scale';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
 import FinRealmService from '../../realm/realm';
+import { AdMobBanner } from 'react-native-admob';
 
 const _frealm = new FinRealmService();
 const { width } = Dimensions.get('window');
@@ -156,6 +157,13 @@ class testResult extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
         />
+        <AdMobBanner
+          adSize="fullBanner"
+          // adUnitID="ca-app-pub-1997214269651620/5618598933"
+          adUnitID="ca-app-pub-3940256099942544/6300978111"
+          // testDevices={[AdMobBanner.simulatorId]}
+          onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
+        />
         <View style={{
           flexDirection: 'row', backgroundColor: '#FFF', width, justifyContent: 'space-around'
         }}
@@ -171,7 +179,7 @@ class testResult extends Component {
             </View>
           </TouchableOpacity>
           {
-            this.state.percentage >= 0
+            this.state.percentage >= 50
               ? (
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Certificate', { percentage: this.state.percentage })}>
                   <View style={styles.takeAnotherTestText}>

@@ -100,6 +100,7 @@ class Home extends Component {
       });
       navigation.dispatch(resetAction);
       this.setState({ ModalClose: false });
+      _frealm.deleteAll();
       this.props.signOutClicked();
       this.props.signOutClickRemoveResult();
     }
@@ -333,24 +334,24 @@ class Home extends Component {
       return (
         <Animatable.View
           animation={this.state.itemSelected === item ? 'pulse' : ''}
-          iterationCount={this.state.itemSelected === item ? 1 : 0}
-          direction={this.state.itemSelected === item ? 'alternate' : ''}
-          duration={this.state.itemSelected === item ? 300 : 0}
+          iterationCount={this.state.itemSelected === item ? 1 : undefined}
+          direction={this.state.itemSelected === item ? 'alternate' : undefined}
+          duration={this.state.itemSelected === item ? 300 : undefined}
         >
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => this.itemClicked(item)}
             style={{
-              marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'white', flex: 1,
+              marginVertical: scale(3), borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: scale(10), backgroundColor: 'white', flex: 1,
             }}
           >
             <Animated.Image
-              style={{ width: 50, height: 50, borderRadius: 25 }}
+              style={{ width: scale(50), height: scale(50), borderRadius: scale(25) }}
               source={require('./../../assets/logo.jpg')}
             />
-            <Text numberOfLines={1} style={{ width: scale(70), fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+            <Text numberOfLines={1} style={{ width: scale(70), fontSize: scale(20), marginLeft: scale(10) }}>{item.name}</Text>
             
-            <View style={{ justifyContent: 'center', alignItems: 'center', height: 50 }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', height: scale(50) }}>
               <TouchableOpacity onPress={() => this.resultHistoryClick(item.id)}>
                 <IconMenu name="info-with-circle" size={19} color={this.props.appColor} />
               </TouchableOpacity>

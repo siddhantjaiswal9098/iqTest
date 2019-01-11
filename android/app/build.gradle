@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-admob')
     compile project(':realm')
     compile project(':react-native-image-crop-picker')
    compile project(':react-native-fs')

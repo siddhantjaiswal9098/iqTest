@@ -1,4 +1,4 @@
-import { StyleSheet, PixelRatio } from 'react-native';
+import { StyleSheet } from 'react-native';
 import scale from '../../utils/scale';
 
 
@@ -18,9 +18,7 @@ module.exports = StyleSheet.create({
     borderRadius: scale(80),
     width: scale(160),
     height: scale(160),
-    backgroundColor: '#00F1B8',
     borderColor: '#00F1B8',
-    borderWidth: 1 / PixelRatio.get(),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#DFEAE5',
@@ -28,7 +26,6 @@ module.exports = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: scale(12),
-
   },
   inputfield: {
     height: scale(45),
