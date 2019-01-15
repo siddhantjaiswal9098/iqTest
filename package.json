@@ -22,7 +22,7 @@
     "react-native-gifted-chat": "^0.5.0",
     "react-native-image-crop-picker": "^0.21.3",
     "react-native-pinch-zoom-view": "^0.2.0",
-    "react-native-radio-buttons-group": "^1.0.7",
+    "react-native-radio-buttons-group": "git+https://github.com/siddhantjaiswal9098/react-native-radio-buttons-group.git",
     "react-native-share": "^1.0.23",
     "react-native-side-menu": "^1.1.3",
     "react-native-side-menu-over": "0.0.2",

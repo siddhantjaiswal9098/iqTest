@@ -8,11 +8,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import TakeTestIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GenerateCert from 'react-native-vector-icons/FontAwesome5';
+import { AdMobBanner } from 'react-native-admob';
 import scale from '../../utils/scale';
 import styles from './style';
 import * as Actions from '../../actions/commonAction';
 import FinRealmService from '../../realm/realm';
-import { AdMobBanner } from 'react-native-admob';
 
 const _frealm = new FinRealmService();
 const { width } = Dimensions.get('window');
@@ -155,13 +155,13 @@ class testResult extends Component {
           data={this.state.answerKey}
           renderItem={({ item, index }) => this.renderRow(item, index)
           }
-          keyExtractor={(item, index) => index.toString()}
+          keyExtctor={(item, index) => index.toString()}
         />
         <AdMobBanner
           adSize="fullBanner"
           // adUnitID="ca-app-pub-1997214269651620/5618598933"
           adUnitID="ca-app-pub-3940256099942544/6300978111"
-          // testDevices={[AdMobBanner.simulatorId]}
+          testDevices={[AdMobBanner.simulatorId]}
           onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
         />
         <View style={{

@@ -5,10 +5,11 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { AdMobBanner } from 'react-native-admob';
 import * as Actions from '../../actions/commonAction';
 import HeaderComponent from '../header/headerComponent';
 import scale from '../../utils/scale';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const youtubeIcon2 = (<Icon name="youtube" size={scale(30)} color="red" />);
 const moment = require('moment');
@@ -53,7 +54,13 @@ class Result extends Component {
           renderItem={({ item }) => this._renderRow(item)}
           keyExtractor={(item, index) => index.toString()}
         />
-        <Text>{this.state.dataForTestResult.percentage}</Text>
+        <AdMobBanner
+          adSize="fullBanner"
+          // adUnitID="ca-app-pub-1997214269651620/5618598933"
+          adUnitID="ca-app-pub-3940256099942544/6300978111"
+          testDevices={[AdMobBanner.simulatorId]}
+          onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
+        />
       </SafeAreaView>
 
     );
@@ -125,10 +132,6 @@ const styles = StyleSheet.create({
     // fontFamily: 'ubuntu',
     paddingHorizontal: 5,
     textAlignVertical: 'top',
-  },
-  btnContainer: {
-    alignItems: 'flex-end',
-    paddingTop: 20
   },
   takeAnotherTestText: {
     position: 'absolute',
