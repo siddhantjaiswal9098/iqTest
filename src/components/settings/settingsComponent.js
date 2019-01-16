@@ -69,7 +69,7 @@ class SettingsComponent extends Component {
         this.setState({ imageURI: { uri: imageURI.path } });
         if (this.state.email === '' || this.state.lname === ''
       || this.state.password === '' || this.state.name === '') {
-          Alert.alert('empty Value Not allowed');
+          Alert.alert('Empty value not allowed');
         } else {
           const data = {
             email: this.props.data.email,
@@ -106,7 +106,7 @@ class SettingsComponent extends Component {
           </View>
           <View style={{ flex: 0.7, justifyContent: 'space-around', marginLeft: 10 }}>
             <TouchableOpacity
-              onPress={() => Alert.alert('Will be implemented soon.')}
+              onPress={() => this.props.navigation.navigate('ProfileChange')}
               style={{
                 flexDirection: 'row', padding: 2, borderBottomWidth: 1, borderColor: 'white'
               }}
@@ -115,11 +115,11 @@ class SettingsComponent extends Component {
               <Text
                 style={styles.item}
               >
-                        Accounts
+                        Account
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => Alert.alert('Will be implemented soon.')}
+              onPress={() => this.props.navigation.navigate('ChattingHome')}
               style={{
                 flexDirection: 'row', padding: 2, borderBottomWidth: 1, borderColor: 'white'
               }}

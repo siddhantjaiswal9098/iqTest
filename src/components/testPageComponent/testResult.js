@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Alert, Text, View, SafeAreaView, TouchableOpacity, Image, FlatList, Dimensions
+  Alert, Text, BackHandler, View, SafeAreaView, TouchableOpacity, Image, FlatList, Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -41,7 +41,17 @@ class testResult extends Component {
     };
   }
 
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    console.log('Result Back Press');
+    return true;
+  }
+
   UNSAFE_componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     console.log('!!!!!!QWE', this.props.answerKey, this.props.userAnswer);
     let marks = 0;
     // console.log("!!!!!!",answerKey.length);
@@ -83,7 +93,7 @@ class testResult extends Component {
     if (good && PassedResultVal.percentage >= 50) {
       NewArrResult.push(PassedResultVal);
       const deepCopy = Array.from(NewArrResult);
-      console.log('DOnde with it2', deepCopy);
+      console.log('Deep copy deepCopy', deepCopy);
       this.props.TestResultPass(deepCopy);
     }
   }
@@ -124,10 +134,6 @@ class testResult extends Component {
 
   render() {
     // console.log("this.state.answerKey", this.state.answerKey)
-
-    // if(percentage>=50){
-    //   TestResultPass()
-    // }
     return (
       <SafeAreaView style={[styles.container2, { backgroundColor: this.props.appColor }]}>
         <Image
@@ -155,14 +161,14 @@ class testResult extends Component {
           data={this.state.answerKey}
           renderItem={({ item, index }) => this.renderRow(item, index)
           }
-          keyExtctor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => index.toString()}
         />
         <AdMobBanner
           adSize="fullBanner"
           // adUnitID="ca-app-pub-1997214269651620/5618598933"
           adUnitID="ca-app-pub-3940256099942544/6300978111"
           testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
+          // onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
         />
         <View style={{
           flexDirection: 'row', backgroundColor: '#FFF', width, justifyContent: 'space-around'

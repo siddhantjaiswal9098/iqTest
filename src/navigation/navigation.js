@@ -16,6 +16,7 @@ import HelpComponent from '../components/Help/HelpComponent';
 import TutorialComponent from '../components/tutorials/tutorialComponent';
 import GameComponent from '../components/game/gameComponent';
 import Result from '../components/result/resultComponent';
+import ProfileChange from '../components/settings/profileChange'
 
 export default createStackNavigator({
   SplashScreen: { screen: SplashScreen, navigationOptions: { header: null } },
@@ -33,5 +34,5 @@ export default createStackNavigator({
   TutorialComponent: { screen: TutorialComponent, navigationOptions: { header: null, }, },
   GameComponent: { screen: GameComponent, navigationOptions: { header: null, }, },
   Result: { screen: Result, navigationOptions: { header: null, }, },
-
+  ProfileChange: { screen: ProfileChange, navigationOptions: { header: null, }, },
 });

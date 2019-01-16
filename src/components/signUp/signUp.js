@@ -42,6 +42,16 @@ class SignUp extends Component {
     });
   }
 
+  validate = (text) => {
+    console.log(text);
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     let open = require('./../../assets/logo.jpg');
     if (this.state.imageURI) {
@@ -126,9 +136,12 @@ class SignUp extends Component {
   }
 
   createUser() {
+    const bool = this.validate(this.state.email);
     if (this.state.email === '' || this.state.lname === ''
       || this.state.password === '' || this.state.name === '') {
       Alert.alert('empty Value Not allowed');
+    } else if (!bool) {
+      Alert.alert('Not a valid Email address');
     } else {
       this.props.SignUpSave(this.state);
       const { navigate } = this.props.navigation;

@@ -39,7 +39,7 @@ export default class FinRealmService {
   realmGetAllData(id) {
     return Realm.open({ schema: [Result] })
       .then((realm) => {
-        return realm.objects('Result').filtered(`TestId == ${id}`);
+        return realm.objects('Result').filtered(`TestId == ${id}`).sorted('date', true);
       })
       .catch((error) => {
         console.log(error);

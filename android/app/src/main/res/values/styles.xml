@@ -1,7 +1,11 @@
 <resources>
-
+    <color name="theme_color">#80000000</color>
+    <color name="white_opaque">#B22222</color>
+    <color name="pitch_black">#B22222</color>
+    <!--<color name="pitch_black">#FF000000</color>-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/theme_color</item>
     </style>
 </resources>

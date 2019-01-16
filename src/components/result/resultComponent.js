@@ -20,10 +20,14 @@ const { height, width } = Dimensions.get('window');
 class Result extends Component {
   constructor(props) {
     super(props);
+    this.scroll = null;
     this.state = {
       dataForTestResult: this.props.navigation.state.params.dataForTestResult,
       id: this.props.navigation.state.params.id
     };
+  }
+
+  componentDidMount() {
   }
 
   render() {
@@ -53,6 +57,7 @@ class Result extends Component {
           data={this.state.dataForTestResult}
           renderItem={({ item }) => this._renderRow(item)}
           keyExtractor={(item, index) => index.toString()}
+          // inverted
         />
         <AdMobBanner
           adSize="fullBanner"
@@ -69,9 +74,9 @@ class Result extends Component {
   itemClicked(item) {
     this.props.navigation.navigate('Certificate', { percentage: item.percentage });
   }
-
+  
   _renderRow(item) {
-    console.log('At result Page', item);
+    // console.log('At result Page', item);
     const currentTime = item.date.toISOString();
     const datenew = moment(currentTime).format('DD-MM-YY hh:mm A');
     return (
