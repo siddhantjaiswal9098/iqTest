@@ -8,10 +8,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions/commonAction';
 import styles from './styles';
+import scale from '../../utils/scale';
 
 const textMax = 300;
-const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
-const BackIcon2 = (<BackIcon name="md-arrow-back" size={30} color="#fff" />);
+const IconMenu2 = (<IconMenu name="menu" size={scale(30)} color="#fff" />);
+const BackIcon2 = (<BackIcon name="md-arrow-back" size={scale(30)} color="#fff" />);
 class ChattingHome extends Component {
   constructor(props) {
     super(props);
@@ -32,15 +33,15 @@ class ChattingHome extends Component {
         activeOpacity={0.7}
         onPress={() => this.itemClicked(item)}
         style={{
-          marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 10, marginHorizontal: 10, backgroundColor: 'white', flex: 1
+          marginVertical: 3, borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: scale(10), marginHorizontal: scale(10), backgroundColor: 'white', flex: 1
         }}
       >
         <Image
-          style={{ width: 50, height: 50, borderRadius: 25 }}
+          style={{ width: scale(50), height: scale(50), borderRadius: scale(25) }}
           source={require('./../../assets/logo.jpg')}
         />
 
-        <Text numberOfLines={1} style={{ width: 200, fontSize: 20, marginLeft: 10 }}>{item.key}</Text>
+        <Text numberOfLines={1} style={{ width: scale(200), fontSize: scale(20), marginLeft: scale(10) }}>{item.key}</Text>
       </TouchableOpacity>
     );
   }

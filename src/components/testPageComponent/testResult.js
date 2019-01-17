@@ -55,17 +55,21 @@ class testResult extends Component {
     console.log('!!!!!!QWE', this.props.answerKey, this.props.userAnswer);
     let marks = 0;
     // console.log("!!!!!!",answerKey.length);
-    this.state.answerKey.map((obj) => {
-      this.state.userAnswer.map((obj2) => {
+    const answerKeys = this.state.answerKey;
+    let userAnswers = Array.from(this.state.userAnswer);
+    answerKeys.map((obj) => {
+      userAnswers.map((obj2) => {
         if (obj.answer === obj2.label) {
-          // console.log("ArrayAnswer", obj.arrAnswers, obj2.label)
           marks += 1;
+          userAnswers.splice(obj2, 1);
+          console.log('ArrayAnswer', obj.answer, obj2.label, marks);
         }
       });
     });
     const value = (marks / this.state.totalQues) * 100;
     const percentage = Math.round(value * 100) / 100;
     this.setState({ marks, percentage });
+    console.log('marks:', marks, 'totalQues:', this.state.totalQues, 'percentage:', percentage, 'value:', value);
   }
 
   componentDidMount() {
@@ -127,7 +131,6 @@ class testResult extends Component {
         {
           index < this.state.totalQues - 1 ? <View /> : <View style={{ marginBottom: scale(20) }} />
         }
-
       </View>
     );
   }
@@ -163,13 +166,15 @@ class testResult extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
         />
-        <AdMobBanner
-          adSize="fullBanner"
-          // adUnitID="ca-app-pub-1997214269651620/5618598933"
-          adUnitID="ca-app-pub-3940256099942544/6300978111"
-          testDevices={[AdMobBanner.simulatorId]}
-          // onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
-        />
+        <View style={{width, alignItems: 'center'}}>
+          <AdMobBanner
+            adSize="fullBanner"
+            // adUnitID="ca-app-pub-1997214269651620/5618598933"
+            adUnitID="ca-app-pub-3940256099942544/6300978111"
+            testDevices={[AdMobBanner.simulatorId]}
+            // onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
+          />
+        </View>
         <View style={{
           flexDirection: 'row', backgroundColor: '#FFF', width, justifyContent: 'space-around'
         }}

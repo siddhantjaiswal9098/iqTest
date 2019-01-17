@@ -48,8 +48,8 @@ class Result extends Component {
           }}
           source={require('./../../assets/logo.jpg')}
         />
-        <View style={{ padding: 10, alignSelf: 'center' }}>
-          <Text style={{ fontSize: 22 }}>
+        <View style={{ padding: scale(10), alignSelf: 'center' }}>
+          <Text style={{ fontSize: scale(22) }}>
             {`Total Attempts: ${this.state.dataForTestResult.length}`}
           </Text>
         </View>
@@ -57,15 +57,16 @@ class Result extends Component {
           data={this.state.dataForTestResult}
           renderItem={({ item }) => this._renderRow(item)}
           keyExtractor={(item, index) => index.toString()}
-          // inverted
         />
-        <AdMobBanner
-          adSize="fullBanner"
-          // adUnitID="ca-app-pub-1997214269651620/5618598933"
-          adUnitID="ca-app-pub-3940256099942544/6300978111"
-          testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
-        />
+        <View style={{ width, alignItems: 'center' }}>
+          <AdMobBanner
+            adSize="fullBanner"
+            // adUnitID="ca-app-pub-1997214269651620/5618598933"
+            adUnitID="ca-app-pub-3940256099942544/6300978111"
+            testDevices={[AdMobBanner.simulatorId]}
+            onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
+          />
+        </View>
       </SafeAreaView>
 
     );
@@ -74,7 +75,7 @@ class Result extends Component {
   itemClicked(item) {
     this.props.navigation.navigate('Certificate', { percentage: item.percentage });
   }
-  
+
   _renderRow(item) {
     // console.log('At result Page', item);
     const currentTime = item.date.toISOString();
@@ -84,16 +85,27 @@ class Result extends Component {
         activeOpacity={0.8}
         onPress={item.percentage >= 50 ? () => this.itemClicked(item) : () => Alert.alert('Certificate can not be generated because you have failed the Test.')}
         style={{
-          marginVertical: 3, height: 50, justifyContent: 'space-between', borderColor: 'black', opacity: 0.8, borderBottomWidth: 0.4, flexDirection: 'row', alignItems: 'center', padding: 15, marginHorizontal: 10, backgroundColor: 'white', flex: 1
+          marginVertical: 3,
+          height: scale(50),
+          justifyContent: 'space-between',
+          borderColor: 'black',
+          opacity: 0.8,
+          borderBottomWidth: scale(0.4),
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: scale(15),
+          marginHorizontal: scale(10),
+          backgroundColor: 'white',
+          flex: 1
         }}
       >
-        <Text style={{ width: 70, fontSize: 20 }}>
+        <Text style={{ width: scale(70), fontSize: scale(20) }}>
           {`${item.percentage}%`}
         </Text>
-        <Text style={{ color: item.percentage >= 50 ? 'green' : 'red', width: 50, fontSize: 20 }}>
+        <Text style={{ color: item.percentage >= 50 ? 'green' : 'red', width: scale(50), fontSize: scale(20) }}>
           {item.percentage >= 50 ? 'PASS' : 'FAIL'}
         </Text>
-        <Text>
+        <Text style={{ fontSize: scale(15) }}>
           {datenew}
         </Text>
       </TouchableOpacity>
@@ -121,27 +133,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tagLineText: {
-    marginLeft: 10,
-    width: width - 20,
-    fontSize: 15,
+    marginLeft: scale(10),
+    width: width - scale(20),
+    fontSize: scale(15),
     color: 'grey',
     alignSelf: 'flex-start'
   },
   description: {
-    marginTop: 20,
+    marginTop: scale(20),
     borderColor: 'rgb(117, 117, 117)',
-    borderWidth: 1,
-    borderRadius: 4,
-    height: 150,
-    fontSize: 12,
+    borderWidth: scale(1),
+    borderRadius: scale(4),
+    height: scale(150),
+    fontSize: scale(12),
     // fontFamily: 'ubuntu',
-    paddingHorizontal: 5,
+    paddingHorizontal: scale(5),
     textAlignVertical: 'top',
   },
   takeAnotherTestText: {
     position: 'absolute',
-    right: 10,
-    top: getStatusBarHeight(true) + scale(10),
+    right: scale(10),
+    top: getStatusBarHeight(true),
     padding: scale(5),
     flexDirection: 'row',
     alignItems: 'center',

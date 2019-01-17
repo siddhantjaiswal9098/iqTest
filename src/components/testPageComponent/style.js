@@ -66,7 +66,7 @@ module.exports = StyleSheet.create({
     fontSize: scale(20),
     color: 'white',
     position: 'absolute',
-    top: getStatusBarHeight(true) + scale(15),
+    top: getStatusBarHeight(true) + scale(5),
     right: scale(10)
   },
   submitView: {

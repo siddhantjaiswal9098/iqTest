@@ -13,11 +13,11 @@ import scale from '../../utils/scale';
 import * as Actions from '../../actions/commonAction';
 import styles from './style';
 
-const userIcon = (<Icon name="home" size={30} color="#fff" />);
-const userIcon2 = (<Icon2 name="library-books" size={30} color="#fff" />);
-const userIcon3 = (<Icon3 name="search" size={30} color="#fff" />);
-const userIcon4 = (<Icon4 name="book" size={30} color="#fff" />);
-const userIcon5 = (<Icon name="contacts" size={30} color="#fff" />);
+const userIcon = (<Icon name="home" size={scale(30)} color="#fff" />);
+const userIcon2 = (<Icon2 name="library-books" size={scale(30)} color="#fff" />);
+const userIcon3 = (<Icon3 name="search" size={scale(30)} color="#fff" />);
+const userIcon4 = (<Icon4 name="book" size={scale(30)} color="#fff" />);
+const userIcon5 = (<Icon name="contacts" size={scale(30)} color="#fff" />);
 
 const { height, width } = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';

@@ -9,7 +9,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import * as Actions from '../../actions/commonAction';
 import scale from '../../utils/scale';
 
-const BackIcon2 = (<BackIcon name="md-arrow-back" size={30} color="#fff" />);
+const BackIcon2 = (<BackIcon name="md-arrow-back" size={scale(30)} color="#fff" />);
 
 class Feedback extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: scale(10),
-    height: scale(60),
+    height: scale(40),
   },
   headerText: {
     fontSize: scale(28),

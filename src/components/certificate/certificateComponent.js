@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, StyleSheet, BackHandler, Text, View, TouchableOpacity, Image
+  SafeAreaView, BackHandler, Text, View, TouchableOpacity, Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,11 +13,12 @@ import Icon from 'react-native-vector-icons/Entypo';
 import HomeIcon from 'react-native-vector-icons/FontAwesome5';
 import scale from '../../utils/scale';
 import * as Actions from '../../actions/commonAction';
+import styles from './styles';
 
 const RNFS = require('react-native-fs');
 
-const Icon2 = (<Icon name="share" size={30} color="#000" />);
-const HomeIcon2 = (<HomeIcon name="home" size={30} color="#000" />);
+const Icon2 = (<Icon name="share" size={scale(30)} color="#000" />);
+const HomeIcon2 = (<HomeIcon name="home" size={scale(30)} color="#000" />);
 
 class Certificate extends Component {
   constructor(props) {
@@ -42,19 +43,6 @@ class Certificate extends Component {
     componentDidMount() {
       console.log('Done with it99', this.props.TestResult);
       BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-      // console.log('Siddhant', this.props.navigation.state.params.percentage)
-
-      //   const granted = await PermissionsAndroid.check(
-      //     'android.permission.READ_EXTERNAL_STORAGE'
-      //    );
-      //    if (!granted) {
-      //     const response = await PermissionsAndroid.request(
-      //       'android.permission.READ_EXTERNAL_STORAGE'
-      //     );
-      //     if (!response) {
-      //       return;
-      //     }
-      //    }
       setTimeout(() => {
         this.refs.viewShot.capture().then((uri) => {
           console.log('do something with didmount', uri);
@@ -74,14 +62,13 @@ class Certificate extends Component {
     }
 
     clickSend() {
-      // RNFS.DocumentDirectoryPath +
       RNFS.readFile(this.state.uriData, 'base64').then((image) => {
         Share.open({
-          title: 'congratulations',
-          message: 'congratulations on the completion of Test.',
+          title: 'Yeah...!!!',
+          message: 'I have completed a iqTest',
           url: `data:image/jpeg;base64,${image}`,
           type: 'image/jpeg',
-          subject: 'iqTest' //  for email
+          subject: 'iqTest'
         }).catch((err) => {
           console.log('ERROR', err);
         });
@@ -102,83 +89,33 @@ class Certificate extends Component {
 
     render() {
       // console.log("URI:-", this.state.uriData);
-
       return (
         <SafeAreaView style={styles.container}>
-          <PinchZoomView style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <PinchZoomView style={styles.pinchZoomView}>
             <ViewShot ref="viewShot" options={{ format: 'jpg', quality: 0.9 }}>
 
-              <Text style={{
-                position: 'absolute', top: scale(80), left: scale(170), zIndex: 5000, fontSize: scale(9)
-              }}
-              >
+              <Text style={styles.nameView}>
                 {this.state.name}
 
               </Text>
-              <Text style={{
-                position: 'absolute', top: scale(151), left: scale(110), zIndex: 5000, fontSize: scale(9)
-              }}
-              >
+              <Text style={styles.percentageView}>
                 {this.state.percentage}
 
               </Text>
-              <Image style={{ width: scale(761 / 2), height: scale(538 / 2), }} source={require('./../../assets/certificate.png')} />
+              <Image style={styles.imageView} source={require('./../../assets/certificate.png')} />
 
             </ViewShot>
           </PinchZoomView>
-          {/* <Image style={{ height: 200, width: 200 }} source={{ uri: this.state.uriData }} /> */}
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              right: 10,
-              bottom: scale(10),
-              zIndex: 5000,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-            onPress={() => {
-              this.clickSend();
-            }}
-          >
-            <View style={{
-              backgroundColor: '#cccccc',
-              margin: scale(10),
-              padding: 10,
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderRadius: 10
-            }}
-            >
+          <TouchableOpacity style={styles.sendBtnView} onPress={() => { this.clickSend(); }}>
+            <View style={styles.shareIconView}>
               {Icon2}
-              <Text>  Share</Text>
+              <Text style={{ fontSize: scale(16) }}>Share</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              left: 10,
-              bottom: scale(10),
-              zIndex: 5000,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-            onPress={() => {
-              this.clickHome();
-            }}
-          >
-            <View style={{
-              backgroundColor: '#cccccc',
-              margin: scale(10),
-              padding: 10,
-              flexDirection: 'row',
-              alignItems: 'center',
-              borderRadius: 10
-            }}
-            >
+          <TouchableOpacity style={styles.backToHomeView} onPress={() => { this.clickHome(); }}>
+            <View style={styles.backToHomeInnerView}>
               {HomeIcon2}
-              <Text>  Back to Home</Text>
+              <Text style={{ fontSize: scale(16) }}>  Back to Home</Text>
             </View>
           </TouchableOpacity>
         </SafeAreaView>
@@ -199,14 +136,3 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Certificate);
 
-
-const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-
-  },
-
-});

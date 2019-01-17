@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import HeaderComponent from '../header/headerComponent';
 import * as Actions from '../../actions/commonAction';
+import scale from '../../utils/scale';
 
 const { width } = Dimensions.get('window');
-const Icon2 = (<Icon name="send" size={40} color="#fff" />);
+const Icon2 = (<Icon name="send" size={scale(40)} color="#fff" />);
 const textMax = 300;
 class Feedback extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Feedback extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <HeaderComponent navigationFromPage={this.props.navigation} headerText="Feedback" />
-        <ScrollView style={{ padding: 20 }} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
+        <ScrollView style={{ padding: scale(20) }} keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
           <View>
             <Text numberOfLines={3} style={styles.tagLineText}>
               {
@@ -56,7 +57,7 @@ class Feedback extends Component {
             onChangeText={feedback => this.setState({ feedback, remaining: textMax - feedback.length })}
             value={this.state.feedback}
           />
-          <Text style={{ color: 'gray' }}>
+          <Text style={{ color: 'gray', fontSize: scale(15) }}>
             {this.state.remaining}
             {' '}
 characters remaining
@@ -64,7 +65,7 @@ characters remaining
           <View style={styles.btnContainer}>
             <TouchableOpacity
               style={{
-                backgroundColor: this.props.appColor, padding: 10, paddingTop: 15, paddingRight: 15, borderRadius: 60
+                backgroundColor: this.props.appColor, padding: scale(10), paddingTop: scale(15), paddingRight: scale(15), borderRadius: scale(60)
               }}
               onPress={() => { this._submitFeedback(); }}
             >
@@ -100,25 +101,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   tagLineText: {
-    marginLeft: 10,
-    width: width - 20,
-    fontSize: 15,
+    marginLeft: scale(10),
+    width: width - scale(20),
+    fontSize: scale(15),
     color: 'grey',
     alignSelf: 'flex-start'
   },
   description: {
-    marginTop: 20,
+    marginTop: scale(20),
     borderColor: 'rgb(117, 117, 117)',
-    borderWidth: 1,
-    borderRadius: 4,
-    height: 150,
-    fontSize: 12,
+    borderWidth: scale(1),
+    borderRadius: scale(4),
+    height: scale(150),
+    fontSize: scale(12),
     // fontFamily: 'ubuntu',
-    paddingHorizontal: 5,
+    paddingHorizontal: scale(5),
     textAlignVertical: 'top',
   },
   btnContainer: {
     alignItems: 'flex-end',
-    paddingTop: 20
+    paddingTop: scale(20)
   },
 });

@@ -62,7 +62,7 @@ class TestPage extends Component {
         }}
         >
 
-          <Text>
+          <Text style={{fontSize: scale(18)}}>
             {index + 1}
             /
             {this.state.dataLen}
@@ -73,7 +73,7 @@ class TestPage extends Component {
         }}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Text style={{ paddingVertical: 20, fontSize: scale(20) }}>
+            <Text style={{ paddingVertical: scale(20), fontSize: scale(20) }}>
               {index + 1}
 )
               {' '}
@@ -221,7 +221,7 @@ class TestPage extends Component {
             itemWidth={width}
           />
           <TouchableOpacity style={styles.submitView} onPress={() => this.submitModal()}>
-            <Text>SUBMIT</Text>
+            <Text style={{fontSize: scale(16)}}>SUBMIT</Text>
           </TouchableOpacity>
           {
                     this.state.modalVisible

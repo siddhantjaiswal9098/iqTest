@@ -17,12 +17,12 @@ import styles from './style';
 import FinRealmService from '../../realm/realm';
 
 const _frealm = new FinRealmService();
-const InfoIcon = (<IconMenu name="info-with-circle" size={19} color="red" />);
+const InfoIcon = (<IconMenu name="info-with-circle" size={scale(19)} color="red" />);
 const RightAns = (<IconRightAns name="checkcircle" size={scale(17)} color="#3CB371" />);
-const Icon2 = (<Icon name="power-off" size={30} color="#fff" />);
-const IconMenu2 = (<IconMenu name="menu" size={30} color="#fff" />);
-const GameIcon = (<IconMenu name="game-controller" size={30} color="#fff" />);
-const FeedbackIcon2 = (<FeedbackIcon name="chat" size={50} color="#fff" />);
+const Icon2 = (<Icon name="power-off" size={scale(30)} color="#fff" />);
+const IconMenu2 = (<IconMenu name="menu" size={scale(30)} color="#fff" />);
+const GameIcon = (<IconMenu name="game-controller" size={scale(30)} color="#fff" />);
+const FeedbackIcon2 = (<FeedbackIcon name="chat" size={scale(50)} color="#fff" />);
 const { height, width } = Dimensions.get('window');
 class Home extends Component {
     _didFocusSubscription;
@@ -344,7 +344,7 @@ class Home extends Component {
 
             <View style={{ justifyContent: 'center', alignItems: 'center', height: scale(50) }}>
               <TouchableOpacity onPress={() => this.resultHistoryClick(item.id)}>
-                <IconMenu name="info-with-circle" size={19} color={this.props.appColor} />
+                <IconMenu name="info-with-circle" size={scale(19)} color={this.props.appColor} />
               </TouchableOpacity>
               {passed ? RightAns : <View />}
               {/* {passed ? <Text>{`${percentageValue}%`}</Text> : <View />} */}

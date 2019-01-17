@@ -24,6 +24,7 @@ module.exports = StyleSheet.create({
   },
   name: {
     color: 'white',
+    fontSize: scale(16),
   },
   email: {
     color: 'white',
