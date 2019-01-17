@@ -46,11 +46,10 @@ class ChattingHome extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log('********', nextProps.navigateToChat);
-    if (nextProps.navigateToChat == true && nextProps.navigateScreen == 'Lobby') {
+    if (nextProps.navigateToChat === true) {
       this.props.navigateToChatting(nextProps.navigateScreen);
       this.props.closeMenu();
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate(nextProps.navigateScreen);
     }
   }
 

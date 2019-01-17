@@ -80,31 +80,47 @@ class TestPage extends Component {
               {item.question}
             </Text>
             <View style={{ alignItems: 'flex-start', marginLeft: scale(10) }}>
-              <RadioGroup
-                radioButtons={[
-                  {
-                    label: item.option[0],
-                  },
-                  {
-                    label: item.option[1],
-                  },
-                  {
-                    label: item.option[2],
-                  },
-                  {
-                    label: item.option[3],
-                  },
-                  {
-                    label: item.option[4],
-                  },
-                ]}
-                onPress={dataforRadio => this.onPress(dataforRadio, index)}
-              />
+              {this.randomData(item.option, index)}
             </View>
           </ScrollView>
         </View>
 
       </View>
+    );
+  }
+
+  randomData(item, index) {
+    const nums = [0, 1, 2, 3, 4];
+    const ranNums = [];
+    let i = nums.length;
+    let j = 0;
+    while (i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      ranNums.push(nums[j]);
+      nums.splice(j, 1);
+    }
+    // console.log('Randon number----->>>>>', ranNums);
+    return (
+      <RadioGroup
+        radioButtons={[
+          {
+            label: item[ranNums[0]],
+          },
+          {
+            label: item[ranNums[1]],
+          },
+          {
+            label: item[ranNums[2]],
+          },
+          {
+            label: item[ranNums[3]],
+          },
+          {
+            label: item[ranNums[4]],
+          },
+        ]}
+        onPress={dataforRadio => this.onPress(dataforRadio, index)}
+      />
     );
   }
 

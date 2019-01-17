@@ -35,11 +35,11 @@ class Index extends Component {
 
         Clipboard.setString('siddhantjai9098@gmail.com');
       } else if (item === 'Chat Page') {
-        this.props.navigateToChatting(item);
-      } else if (item === 'Lobby') {
+        this.props.navigateToChatting('ChattingHome');
+      } else if (item === 'Home') {
         this.props.navigateToChatting(item);
       } else if (item === 'Settings') {
-        this.props.navigateToChatting(item);
+        this.props.navigateToChatting('SettingsComponent');
       } else if (item === 'About Us') {
         this.props.navigateToChatting('HelpComponent');
       } else {

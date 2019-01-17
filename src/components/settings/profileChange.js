@@ -13,8 +13,8 @@ import scale from '../../utils/scale';
 
 const { width } = Dimensions.get('window');
 
-const userIcon = (<Icon name="user-o" size={scale(40)} color="#000" />);
-const lockIcon = (<Icon1 name="lock" size={scale(40)} color="#000" />);
+const userIcon = (<Icon name="user-o" size={scale(40)} color="#FFF" />);
+const lockIcon = (<Icon1 name="lock" size={scale(40)} color="#FFF" />);
 
 class ProfileChange extends Component {
   constructor(props) {
@@ -144,8 +144,9 @@ const styles = StyleSheet.create({
   },
   inputField: {
     width: scale(200),
-    borderBottomColor: 'gray',
+    borderBottomColor: 'white',
     borderBottomWidth: 1,
+    color: 'white'
   },
   inputFieldData: {
     flexDirection: 'row',

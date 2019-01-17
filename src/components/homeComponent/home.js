@@ -66,19 +66,10 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      // console.log("********",nextProps.navigateToChat);
-      if (nextProps.navigateToChat === true && nextProps.navigateScreen === 'Chat Page') {
+      if (nextProps.navigateToChat === true) {
         this.props.navigateToChatting(nextProps.navigateScreen);
         this.props.closeMenu();
-        this.props.navigation.navigate('ChattingHome');
-      } else if (nextProps.navigateToChat === true && nextProps.navigateScreen === 'Settings') {
-        this.props.navigateToChatting(nextProps.navigateScreen);
-        this.props.closeMenu();
-        this.props.navigation.navigate('SettingsComponent');
-      } else if (nextProps.navigateToChat === true && nextProps.navigateScreen === 'HelpComponent') {
-        this.props.navigateToChatting(nextProps.navigateScreen);
-        this.props.closeMenu();
-        this.props.navigation.navigate('HelpComponent');
+        this.props.navigation.navigate(nextProps.navigateScreen);
       }
       if (this.props.AllTestDetail !== nextProps.AllTestDetail) {
         this.setState({ dataForListTest: nextProps.AllTestDetail });
@@ -350,7 +341,7 @@ class Home extends Component {
               source={require('./../../assets/logo.jpg')}
             />
             <Text numberOfLines={1} style={{ width: scale(70), fontSize: scale(20), marginLeft: scale(10) }}>{item.name}</Text>
-            
+
             <View style={{ justifyContent: 'center', alignItems: 'center', height: scale(50) }}>
               <TouchableOpacity onPress={() => this.resultHistoryClick(item.id)}>
                 <IconMenu name="info-with-circle" size={19} color={this.props.appColor} />

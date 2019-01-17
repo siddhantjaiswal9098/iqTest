@@ -65,12 +65,12 @@ class Menu extends Component {
           <View style={{ flex: 0.6, justifyContent: 'space-around', }}>
             {/* <View style={{ justifyContent: 'space-between',flex: 1,backgroundColor: 'green' }}> */}
 
-            <TouchableOpacity onPress={() => this.props.onItemSelected('Lobby')} style={{ flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => this.props.onItemSelected('Home')} style={{ flexDirection: 'row' }}>
               {userIcon}
               <Text
                 style={styles.item}
               >
-                                Lobby
+                                Home
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.onItemSelected('Chat Page')} style={{ flexDirection: 'row', padding: 2 }}>
