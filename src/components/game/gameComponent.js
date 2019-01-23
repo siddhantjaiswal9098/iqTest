@@ -74,11 +74,11 @@ export default class gameComponent extends PureComponent {
             style={styles.container}
             systems={[MoveFinger]}
             entities={{
-              0: { position: [40, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(60)} randomWidth={this.state.randomWidth} keys={0} methodCall={() => this.methodCall()} /> },
-              1: { position: [100, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(60)} randomWidth={this.state.randomWidth} keys={1} methodCall={() => this.methodCall()} /> },
-              2: { position: [160, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(60)} randomWidth={this.state.randomWidth} keys={2} methodCall={() => this.methodCall()} /> },
-              3: { position: [220, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(60)} randomWidth={this.state.randomWidth} keys={3} methodCall={() => this.methodCall()} /> },
-              4: { position: [280, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(60)} randomWidth={this.state.randomWidth} keys={4} methodCall={() => this.methodCall()} /> }
+              0: { position: [40, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(40)} randomWidth={this.state.randomWidth} keys={0} methodCall={() => this.methodCall()} /> },
+              1: { position: [100, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(40)} randomWidth={this.state.randomWidth} keys={1} methodCall={() => this.methodCall()} /> },
+              2: { position: [160, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(40)} randomWidth={this.state.randomWidth} keys={2} methodCall={() => this.methodCall()} /> },
+              3: { position: [220, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(40)} randomWidth={this.state.randomWidth} keys={3} methodCall={() => this.methodCall()} /> },
+              4: { position: [280, 200], renderer: <Finger randomHeight={this.state.randomHeight + scale(40)} randomWidth={this.state.randomWidth} keys={4} methodCall={() => this.methodCall()} /> }
             }}
           >
             <HeaderComponent navigationFromPage={this.props.navigation} headerText="Game" />

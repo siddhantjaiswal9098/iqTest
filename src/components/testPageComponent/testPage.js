@@ -58,25 +58,25 @@ class TestPage extends Component {
     return (
       <View style={{ flex: 1, }}>
         <View style={{
-          alignItems: 'center', opacity: 0.7, padding: 5, marginHorizontal: 5, margin: 10, marginBottom: 5, borderRadius: 5, justifyContent: 'center', backgroundColor: 'white'
+          alignItems: 'center', opacity: 0.7, padding: 5, marginVertical: scale(2), marginHorizontal: scale(5), borderRadius: 5, justifyContent: 'center', backgroundColor: 'white'
         }}
         >
 
-          <Text style={{fontSize: scale(18)}}>
+          <Text style={{ fontSize: scale(18) }}>
             {index + 1}
             /
             {this.state.dataLen}
           </Text>
         </View>
         <View style={{
-          flex: 1, opacity: 0.7, backgroundColor: 'white', marginHorizontal: 5, paddingHorizontal: 10, borderRadius: 5
+          flex: 1, opacity: 0.7, backgroundColor: 'white', marginHorizontal: scale(5), paddingHorizontal: scale(10), borderRadius: 5
         }}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={{ paddingVertical: scale(20), fontSize: scale(20) }}>
-              {index + 1}
+              {/* {index + 1}
 )
-              {' '}
+              {' '} */}
               {item.question}
             </Text>
             <View style={{ alignItems: 'flex-start', marginLeft: scale(10) }}>
@@ -127,23 +127,26 @@ class TestPage extends Component {
     onPress = (dataforRadio, index) => {
       // console.log("dataforRadio from Radio", dataforRadio);
       dataforRadio.map((obj) => {
+        console.log('inside map', obj);
         if (obj.selected) {
+          console.log('inside map OBJ', obj.selected, this.arrAnswers);
           let flagData = true;
           this.arrAnswers.map((obj2) => {
-            // console.log("Map1", obj2.index)
+            console.log('Map1', obj2.index, index + 1);
             if (obj2.index === index + 1) {
-              // alert("Same Data")
+              // Alert.alert('Same Data');
               const objAns = {
                 index: index + 1,
                 label: obj.label
               };
               // console.log("Map2", obj.label);
+              // this.arrAnswers.splice(index - 2, 1, objAns);
               this.arrAnswers[index] = objAns;
               flagData = false;
             }
           });
           if (flagData) {
-            // alert("First")
+            // Alert.alert('First');
             const objAns = {
               index: index + 1,
               label: obj.label
@@ -174,7 +177,8 @@ class TestPage extends Component {
 
     timeExpiredNavigate() {
       clearInterval(this.timer);
-      this.props.SaveResult(this.state.data, this.arrAnswers);
+      const arr = this.arrAnswers.filter(Boolean);
+      this.props.SaveResult(this.state.data, arr);
 
       if (this.state.modalVisible) {
         this.setState({ modalVisible: false });
@@ -221,7 +225,7 @@ class TestPage extends Component {
             itemWidth={width}
           />
           <TouchableOpacity style={styles.submitView} onPress={() => this.submitModal()}>
-            <Text style={{fontSize: scale(16)}}>SUBMIT</Text>
+            <Text style={{ fontSize: scale(16) }}>SUBMIT</Text>
           </TouchableOpacity>
           {
                     this.state.modalVisible
@@ -290,7 +294,8 @@ class TestPage extends Component {
     }
 
     submitAns() {
-      this.props.SaveResult(this.state.data, this.arrAnswers);
+      const arr = this.arrAnswers.filter(Boolean);
+      this.props.SaveResult(this.state.data, arr);
       clearInterval(this.timer);
       this.props.navigation.navigate('testResult', { testId: this.props.navigation.state.params.items });
       this.setState({ modalVisible: !this.state.modalVisible });

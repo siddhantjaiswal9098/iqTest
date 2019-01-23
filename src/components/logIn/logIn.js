@@ -20,12 +20,12 @@ class logIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.data.email,
-      password: this.props.data.password,
+      email: this.props.dataSignUp.email,
+      password: this.props.dataSignUp.password,
       name: '',
       lname: '',
-      data: this.props.data,
-      imageURI: this.props.data.imageURI ? { uri: this.props.data.imageURI.path } : require('./../../assets/logo.jpg'),
+      data: this.props.dataSignUp,
+      imageURI: this.props.dataSignUp.imageURI ? { uri: this.props.dataSignUp.imageURI.path } : require('./../../assets/logo.jpg'),
     };
   }
 
@@ -67,7 +67,8 @@ class logIn extends Component {
               style={styles.inputfield}
               onChangeText={email => this.setState({ email })}
               value={this.state.email}
-              placeholder="SomeUser@gmail.com" />
+              placeholder="SomeUser@gmail.com"
+            />
           </View>
           <View style={styles.inlineView}>
             <View style={styles.viewfont}>
@@ -86,7 +87,7 @@ class logIn extends Component {
               Log In
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.createAccountpage()} >
+          <TouchableOpacity onPress={() => this.createAccountpage()}>
             <Text style={styles.signinbtn}>
               Create New Account
             </Text>
@@ -97,21 +98,8 @@ class logIn extends Component {
     );
   }
 
-  createAccountpage() {
-    const { navigate } = this.props.navigation;
-    navigate('Signup');
-  }
-
-  logInUser() {
-    if (this.props.data.email === this.state.email &&
-      this.state.password === this.props.data.password
-      && this.state.email !== undefined && this.state.password !== undefined) {
-      const data = {
-        email: this.state.email,
-        password: this.state.password
-      };
-      this.props.loginClickAction(data);
-      console.log('%%%%%%', this.props.AllTestDetail);
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== {}) {
       const { navigation } = this.props;
       const toRoute = 'Home';
       const resetAction = StackActions.reset({
@@ -121,8 +109,37 @@ class logIn extends Component {
         ]
       });
       navigation.dispatch(resetAction);
+    }
+  }
+
+  createAccountpage() {
+    const { navigate } = this.props.navigation;
+    navigate('Signup');
+  }
+
+  validate = (text) => {
+    console.log(text);
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(text) === false) {
+      return false;
     } else {
+      return true;
+    }
+  }
+
+  logInUser() {
+    const bool = this.validate(this.state.email);
+    if (this.state.email === undefined || this.state.email === '' && this.state.password === undefined || this.state.password === '') {
       Alert.alert('This is not a valid user detail');
+      // console.log('%%%%%%', this.props.AllTestDetail);
+    } else if (!bool) {
+      Alert.alert('Not a valid Email address');
+    } else {
+      const data = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      this.props.loginClickAction(data);
     }
   }
 }
@@ -136,7 +153,8 @@ function mapStateToProps(state) {
   return {
     data: ReducerSignup.data,
     AllTestDetail: ReducerSignup.AllTestDetail,
-    appColor: ReducerSettings.appColor
+    appColor: ReducerSettings.appColor,
+    dataSignUp: ReducerSignup.dataSignUp
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(logIn);

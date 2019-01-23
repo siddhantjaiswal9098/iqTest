@@ -57,9 +57,10 @@ class testResult extends Component {
     // console.log("!!!!!!",answerKey.length);
     const answerKeys = this.state.answerKey;
     let userAnswers = Array.from(this.state.userAnswer);
-    answerKeys.map((obj) => {
+    answerKeys.map((obj, index) => {
       userAnswers.map((obj2) => {
-        if (obj.answer === obj2.label) {
+        if (obj.answer === obj2.label && index + 1 === obj2.index) {
+          console.log('index ans:-', index + 1, 'userAnswers:-', obj2.index);
           marks += 1;
           userAnswers.splice(obj2, 1);
           console.log('ArrayAnswer', obj.answer, obj2.label, marks);
@@ -79,12 +80,22 @@ class testResult extends Component {
       TestId: this.state.TestId
     };
     const currentDate = new Date();
+    // const PassedResultVal2 = {
+    //   percentage: this.state.percentage,
+    //   TestId: this.state.TestId,
+    //   date: currentDate
+    // };
     const PassedResultVal2 = {
-      percentage: this.state.percentage,
-      TestId: this.state.TestId,
-      date: currentDate
+      testRes: {
+        result: {
+          percentage: this.state.percentage,
+          TestId: this.state.TestId,
+          date: currentDate
+        }
+      },
+      id: this.props.data.id
     };
-    _frealm.Createrealm(PassedResultVal2);
+    this.props.apiCallForDataSaveResult(PassedResultVal2);
     console.log('Test results at Home', this.props.TestResult, PassedResultVal);
     let good = true;
     const NewArrResult = this.props.TestResult;
@@ -166,7 +177,7 @@ class testResult extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
         />
-        <View style={{width, alignItems: 'center'}}>
+        <View style={{ width, alignItems: 'center' }}>
           <AdMobBanner
             adSize="fullBanner"
             // adUnitID="ca-app-pub-1997214269651620/5618598933"
@@ -210,21 +221,6 @@ class testResult extends Component {
       </SafeAreaView>
 
     );
-  }
-
-  createAccountpage() {
-    const { navigate } = this.props.navigation;
-    navigate('Signup');
-  }
-
-  logInUser() {
-    if (this.props.data.email === this.state.email && this.state.password === this.props.data.password) {
-      // alert("valid user");
-      const { navigate } = this.props.navigation;
-      navigate('Home');
-    } else {
-      Alert.alert('This is not a valid user detail');
-    }
   }
 }
 

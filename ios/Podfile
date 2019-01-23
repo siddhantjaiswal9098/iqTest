@@ -1,4 +1,4 @@
 platform :ios, '8.1'
-target "IqTest3" do
+target "iqTest" do
   pod 'Google-Mobile-Ads-SDK'
 end

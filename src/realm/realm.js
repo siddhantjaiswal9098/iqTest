@@ -56,4 +56,27 @@ export default class FinRealmService {
         console.log(error);
       });
   }
+
+  CreaterealmAllResult(allResultDataArr) {
+    allResultDataArr.result.map((data) => {
+      // console.log("data at realm", data);
+      Realm.open({ schema: [Result] })
+        .then((realm) => {
+          // Create Realm objects and write to local storage
+          realm.write(() => {
+            const myResult = realm.create('Result', {
+              percentage: data.percentage,
+              TestId: data.test_id,
+              date: data.date
+            });
+            // console.log('Reaml obj', myResult);
+          });
+          // console.log('create db:', Realm.defaultPath);
+          // cars.length; // => 1
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
 }

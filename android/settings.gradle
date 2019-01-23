@@ -1,4 +1,4 @@
-rootProject.name = 'IqTest3'
+rootProject.name = 'iqTest'
 include ':react-native-admob'
 project(':react-native-admob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-admob/android')
 include ':realm'

@@ -1,5 +1,5 @@
 export function SignUpSave(data) {
-  return ({ type: 'SAVE', data });
+  return ({ type: 'SAVE_DATA', data });
 }
 export function ApiCallForTest(id) {
   return ({ type: 'API_REST', id });
@@ -22,8 +22,8 @@ export function toggleMenu() {
 export function closeMenu() {
   return ({ type: 'SIDE_MENU_CLOSE' });
 }
-export function signOutClicked() {
-  return ({ type: 'SIGN_OUT' });
+export function signOutClicked(Uid) {
+  return ({ type: 'SIGN_OUT_SAGA', Uid });
 }
 export function navigateToChatting(data) {
   return ({ type: 'NAVIGATE_TO_CHAT_SAGA', data });
@@ -39,4 +39,10 @@ export function TestResultPass(data) {
 }
 export function signOutClickRemoveResult(data) {
   return ({ type: 'SIGN_OUT_REMOVE_RESULT', data });
+}
+export function apiCallForDataSaveResult(data) {
+  return ({ type: 'SAVE_RESULT_API', data });
+}
+export function apiCallForDataAllResult(data) {
+  return ({ type: 'SAVE_RESULT_API_ALL', data });
 }

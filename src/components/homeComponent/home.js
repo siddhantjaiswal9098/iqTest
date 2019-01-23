@@ -71,6 +71,9 @@ class Home extends Component {
         this.props.closeMenu();
         this.props.navigation.navigate(nextProps.navigateScreen);
       }
+      console.log('this.props.AllTestDetail', this.props.AllTestDetail);
+      console.log('nextProps.AllTestDetail', nextProps.AllTestDetail);
+
       if (this.props.AllTestDetail !== nextProps.AllTestDetail) {
         this.setState({ dataForListTest: nextProps.AllTestDetail });
       }
@@ -92,7 +95,7 @@ class Home extends Component {
       navigation.dispatch(resetAction);
       this.setState({ ModalClose: false });
       _frealm.deleteAll();
-      this.props.signOutClicked();
+      this.props.signOutClicked(this.props.data.id);
       this.props.signOutClickRemoveResult();
     }
 
@@ -104,6 +107,7 @@ class Home extends Component {
       this.animate();
       this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)); this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.handleBackPress));
       this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload => BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress));
+      this.props.apiCallForDataAllResult(this.props.data.id);
     }
 
     componentWillMount() {
@@ -121,6 +125,8 @@ class Home extends Component {
     }
 
     render() {
+
+      console.log('reducer data---->>>', this.props.data);
       // const height1 = this.animatedValue.interpolate({
       //   inputRange: [0, 0.5, 1],
       //   outputRange: [scale(0), scale(2), scale(0)]
@@ -356,7 +362,7 @@ class Home extends Component {
 
     async resultHistoryClick(data) {
       const dataFrom = await _frealm.realmGetAllData(data);
-      console.log('Data at compo', dataFrom);
+      // console.log('Data at compo', dataFrom);
       this.props.navigation.navigate('Result', { dataForTestResult: dataFrom, id: data });
     }
 }

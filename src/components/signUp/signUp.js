@@ -28,6 +28,14 @@ class SignUp extends Component {
     };
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log('Data on component SignUp', nextProps.dataSignUp);
+    if (nextProps.dataSignUp !== {}) {
+      const { navigate } = this.props.navigation;
+      navigate('logIn');
+    }
+  }
+
   componentDidMount() {
   }
 
@@ -144,8 +152,8 @@ class SignUp extends Component {
       Alert.alert('Not a valid Email address');
     } else {
       this.props.SignUpSave(this.state);
-      const { navigate } = this.props.navigation;
-      navigate('logIn');
+      // const { navigate } = this.props.navigation;
+      // navigate('logIn');
     }
   }
 
@@ -159,9 +167,11 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch);
 }
 function mapStateToProps(state) {
+  const { ReducerSignup } = state;
   const { ReducerSettings } = state;
   return {
-    appColor: ReducerSettings.appColor
+    appColor: ReducerSettings.appColor,
+    dataSignUp: ReducerSignup.dataSignUp,
 
   };
 }

@@ -6,13 +6,26 @@ const initialstate = {
   resultData: {},
   userAnswer: {},
   AllTestDetail: [],
+  dataSignUp: {
+    email: '',
+    password: '',
+    name: '',
+    lname: '',
+    imageURI: ''
+  }
 };
 export default ReducerSignup = (state = initialstate, action) => {
   switch (action.type) {
     case 'SAVE':
+      console.log('in SAVE', action);
       return {
         ...state,
         data: action.data,
+      };
+    case 'SAVE_SIGNUP':
+      return {
+        ...state,
+        dataSignUp: action.data,
       };
     case 'API_RES':
       return {
@@ -46,7 +59,14 @@ export default ReducerSignup = (state = initialstate, action) => {
         dataApiTest: {},
         resultData: {},
         userAnswer: {},
-        AllTestDetail: []
+        AllTestDetail: [],
+        dataSignUp: {
+          email: '',
+          password: '',
+          name: '',
+          lname: '',
+          imageURI: ''
+        }
       };
     case 'LOGIN':
       return {
