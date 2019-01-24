@@ -71,8 +71,8 @@ class Home extends Component {
         this.props.closeMenu();
         this.props.navigation.navigate(nextProps.navigateScreen);
       }
-      console.log('this.props.AllTestDetail', this.props.AllTestDetail);
-      console.log('nextProps.AllTestDetail', nextProps.AllTestDetail);
+      // console.log('this.props.AllTestDetail', this.props.AllTestDetail);
+      // console.log('nextProps.AllTestDetail', nextProps.AllTestDetail);
 
       if (this.props.AllTestDetail !== nextProps.AllTestDetail) {
         this.setState({ dataForListTest: nextProps.AllTestDetail });

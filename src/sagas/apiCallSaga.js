@@ -10,11 +10,6 @@ const _frealm = new FinRealmService();
 export function* ApiCallForTest2(action) {
   try {
     yield put(startSpinner());
-    // var URL = `http://localhost:3000/data`
-    // const response = yield call(fetch, URL);
-    // dataApiTest = response._bodyText;
-    // console.log("$$$$$$!!!!!",dataApiTest);
-    // console.log("$$$$$$£££££",JSON.parse(response2._bodyText))
     const URL2 = `https://nameless-plateau-14252.herokuapp.com/tests/${action.id}/questions`;
     const response2 = yield call(fetch, URL2);
     const dataApiTest = JSON.parse(response2._bodyText);
@@ -59,7 +54,7 @@ export function* apiCallForSignUp(action) {
         'lname': action.data.lname
       }
     };
-    const url = 'https://9dbe8a55.ngrok.io/users';
+    const url = 'https://nameless-plateau-14252.herokuapp.com/users';
     const postRequest = yield call(fetch, url, {
       method: 'POST',
       body: JSON.stringify(dataUser),
@@ -97,7 +92,7 @@ export function* apiCallForSignIn(action) {
         'password': action.data.password
       }
     };
-    const UrlForSignUp = 'https://9dbe8a55.ngrok.io/login';
+    const UrlForSignUp = 'https://nameless-plateau-14252.herokuapp.com/login';
     const postRequest = yield call(fetch, UrlForSignUp, {
       method: 'POST',
       body: JSON.stringify(dataSignIn),
@@ -126,7 +121,7 @@ export function* apiCallForSignIn(action) {
 export function* signOutClick(action) {
   try {
     yield put(startSpinner());
-    const UrlForSignUp = `https://9dbe8a55.ngrok.io/logout/${action.Uid}`;
+    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/logout/${action.Uid}`;
     const postRequest = yield call(fetch, UrlForSignUp, {
       method: 'DELETE'
     });
@@ -147,9 +142,9 @@ export function* signOutClick(action) {
 export function* resultSaveApiCall(action) {
   try {
     // yield put(startSpinner());
-    console.log('inside resultasdasdasdasd^^^^^^^', action.data.id);
+    console.log('inside resultasdasdasdasd^^^^^^^', action.data);
     const result = action.data.testRes;
-    const UrlForSignUp = `https://9dbe8a55.ngrok.io/users/${action.data.id}/results`;
+    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/users/${action.data.id}/results`;
     console.log('action', result, action.data);
     const postRequest = yield call(fetch, UrlForSignUp, {
       method: 'POST',
@@ -159,13 +154,14 @@ export function* resultSaveApiCall(action) {
       }
     });
     const AllTestDetail = yield postRequest.json();
-    console.log('RESULT RESdasdasd:-', postRequest, AllTestDetail);
+    console.log('RESULT RESdasdasd:-', AllTestDetail);
     console.log('inside RESULT RES APIdasdasdas^^^^^^^', JSON.stringify(action.data));
     if (AllTestDetail && AllTestDetail.status === 'ok') {
       const PassedResultVal2 = {
         percentage: AllTestDetail.result.percentage,
         TestId: AllTestDetail.result.test_id,
-        date: AllTestDetail.result.date
+        date: AllTestDetail.result.date,
+        TestUniqueId: AllTestDetail.result.id
       };
       _frealm.Createrealm(PassedResultVal2);
     } else {
@@ -181,14 +177,41 @@ export function* resultSaveApiCall(action) {
 export function* resultApiCallAll(action) {
   try {
     console.log('inside All result Call^^^^^^^', action.data);
-    const UrlForSignUp = `https://9dbe8a55.ngrok.io/users/${action.data}/results`;
+    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/users/${action.data}/results`;
     const postRequest = yield call(fetch, UrlForSignUp);
     const AllTestDetail = yield postRequest.json();
-    // console.log('ALLRESULT RES:-', postRequest, AllTestDetail);
+    console.log('ALLRESULT RES:-', AllTestDetail);
     // console.log('inside ALLRESULT RES API^^^^^^^', JSON.stringify(action.data));
     if (AllTestDetail && AllTestDetail.status === 'ok') {
       _frealm.deleteAll();
       _frealm.CreaterealmAllResult(AllTestDetail);
+    } else {
+      Toast.show(AllTestDetail.message);
+      console.log('Something went wrong.', AllTestDetail.message);
+    }
+  } catch (err) {
+    console.log('ERROR', err);
+  }
+}
+
+export function* ApiCallDeleteResult(action) {
+  console.log('this is the value at', action.data);
+  try {
+    console.log('inside result Delete Call^^^^^^^', action.data.UserId, action.data.testId);
+    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/users/${action.data.UserId}/results/${action.data.testId}`;   
+    const postRequest = yield call(fetch, UrlForSignUp, {
+      method: 'DELETE'
+    });
+    const AllTestDetail = yield postRequest.json();
+    console.log('RESULT DEL RES:-', postRequest, AllTestDetail);
+    console.log('inside RESULT DEL RES API^^^^^^^', JSON.stringify(action.data));
+    if (AllTestDetail && AllTestDetail.status === 'ok') {
+      // _frealm.deleteById(action.data.testId);
+      // _frealm.CreaterealmAllResult(AllTestDetail);
+      const data = action.data.UserId;
+      console.log("Data ki value", data);
+      yield put({ type: 'SAVE_RESULT_API_ALL', data });
+      console.log("Hell yeahh");
     } else {
       Toast.show(AllTestDetail.message);
       console.log('Something went wrong.', AllTestDetail.message);

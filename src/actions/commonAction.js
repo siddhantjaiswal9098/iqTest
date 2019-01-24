@@ -46,3 +46,6 @@ export function apiCallForDataSaveResult(data) {
 export function apiCallForDataAllResult(data) {
   return ({ type: 'SAVE_RESULT_API_ALL', data });
 }
+export function apiCallForResultDeleteByID(data) {
+  return ({ type: 'DELETE_SINGLE_RESULT_API', data });
+}

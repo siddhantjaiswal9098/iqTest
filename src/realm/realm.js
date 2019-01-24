@@ -6,7 +6,8 @@ const Result = {
   properties: {
     percentage: 'float',
     TestId: 'float',
-    date: 'date'
+    date: 'date',
+    TestUniqueId: 'int'
   }
 };
 
@@ -24,7 +25,8 @@ export default class FinRealmService {
           const myResult = realm.create('Result', {
             percentage: data.percentage,
             TestId: data.TestId,
-            date: data.date
+            date: data.date,
+            TestUniqueId: data.TestUniqueId
           });
           console.log('Reaml obj', myResult);
         });
@@ -67,7 +69,8 @@ export default class FinRealmService {
             const myResult = realm.create('Result', {
               percentage: data.percentage,
               TestId: data.test_id,
-              date: data.date
+              date: data.date,
+              TestUniqueId: data.id
             });
             // console.log('Reaml obj', myResult);
           });

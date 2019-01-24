@@ -10,7 +10,8 @@ import {
   navigateSaga,
   signOutClick,
   resultSaveApiCall,
-  resultApiCallAll
+  resultApiCallAll,
+  ApiCallDeleteResult
 } from './apiCallSaga';
 
 function* rootSaga() {
@@ -23,6 +24,7 @@ function* rootSaga() {
   yield takeLatest('SIGN_OUT_SAGA', signOutClick);
   yield takeLatest('SAVE_RESULT_API', resultSaveApiCall);
   yield takeLatest('SAVE_RESULT_API_ALL', resultApiCallAll);
+  yield takeLatest('DELETE_SINGLE_RESULT_API', ApiCallDeleteResult);
   
 }
 export default rootSaga;

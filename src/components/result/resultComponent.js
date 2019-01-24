@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, Alert, StyleSheet, FlatList, Text, View, SafeAreaView, TouchableOpacity, Image, TextInput
+  Dimensions, Alert, StyleSheet, Modal, FlatList, Text, View, SafeAreaView, TouchableOpacity, Image, TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/AntDesign';
+import IconDelete from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { AdMobBanner } from 'react-native-admob';
 import * as Actions from '../../actions/commonAction';
 import HeaderComponent from '../header/headerComponent';
 import scale from '../../utils/scale';
+import FinRealmService from '../../realm/realm';
 
+const _frealm = new FinRealmService();
 const youtubeIcon2 = (<Icon name="youtube" size={scale(30)} color="red" />);
+
+
 const moment = require('moment');
 
 
@@ -23,7 +28,9 @@ class Result extends Component {
     this.scroll = null;
     this.state = {
       dataForTestResult: this.props.navigation.state.params.dataForTestResult,
-      id: this.props.navigation.state.params.id
+      id: this.props.navigation.state.params.id,
+      modalDelete: false,
+      daleteQnique: ''
     };
   }
 
@@ -48,8 +55,8 @@ class Result extends Component {
           }}
           source={require('./../../assets/logo.jpg')}
         />
-        <View style={{ padding: scale(10), alignSelf: 'center' }}>
-          <Text style={{ fontSize: scale(22) }}>
+        <View style={{ padding: scale(10), alignItems: 'center' }}>
+          <Text style={{ fontSize: scale(22), }}>
             {`Total Attempts: ${this.state.dataForTestResult.length}`}
           </Text>
         </View>
@@ -67,9 +74,69 @@ class Result extends Component {
             onAdFailedToLoad={error => console.error('Error while Loading the Ads', error)}
           />
         </View>
+        { this.state.modalDelete
+          ? (
+            <Modal
+              animationType="fade"
+              transparent
+              visible={this.state.modalDelete}
+            >
+              <View style={styles.modalContainer}>
+                <View style={styles.cancelBtnView}>
+                  <TouchableOpacity style={styles.modalBtnText} onPress={() => this.setState({ modalDelete: !this.state.modalDelete })}>
+                    <Text>
+                      x
+                    </Text>
+                  </TouchableOpacity>
+                  <Text style={{ paddingHorizontal: scale(20), fontSize: scale(15) }}>
+                    You won't be able to retrieve this data again. Do you really want to delete the history?
+                  </Text>
+                  <View style={styles.okCancelView}>
+                    <TouchableOpacity
+                      onPress={() => this.setState({ modalDelete: !this.state.modalDelete })}
+                      style={{
+                        padding: scale(10), paddingHorizontal: scale(2), backgroundColor: this.props.appColor, width: scale(80), justifyContent: 'center', alignItems: 'center', marginRight: scale(10)
+                      }}
+                    >
+                      <Text style={{ color: 'white', fontSize: scale(15) }}>
+                                                Cancel
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => this.deleteRes()}
+                      style={{
+                        padding: scale(10), paddingHorizontal: scale(2), backgroundColor: 'red', width: scale(80), justifyContent: 'center', alignItems: 'center'
+                      }}
+                    >
+                      <Text style={{ color: 'white', fontSize: scale(15) }}>
+                                                Ok
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          ) : null }
       </SafeAreaView>
 
     );
+  }
+
+  async deleteRes() {
+    this.props.startSpinner();
+    console.log('this is result page', this.state.id, this.props.data.id);
+    const idObj = {
+      testId: this.state.daleteQnique,
+      UserId: this.props.data.id
+    };
+    this.props.apiCallForResultDeleteByID(idObj);
+    const dataFrom = await _frealm.realmGetAllData(this.state.id);
+    this.setState({ modalDelete: !this.state.modalDelete });
+    setTimeout(() => {
+      this.setState({ dataForTestResult: dataFrom });
+      this.props.stopSpinner();
+    // this.setState({ dataForTestResult: dataFrom });
+    }, 3000);
   }
 
   itemClicked(item) {
@@ -77,7 +144,7 @@ class Result extends Component {
   }
 
   _renderRow(item) {
-    // console.log('At result Page', item);
+    console.log('At result Page', item);
     const currentTime = item.date.toISOString();
     const datenew = moment(currentTime).format('DD-MM-YY hh:mm A');
     return (
@@ -108,8 +175,15 @@ class Result extends Component {
         <Text style={{ fontSize: scale(15) }}>
           {datenew}
         </Text>
+        <TouchableOpacity onPress={() => this.daleteTestResult(item.TestUniqueId)} style={{}}>
+          <IconDelete name="delete-forever" size={scale(25)} color={this.props.appColor} />
+        </TouchableOpacity>
       </TouchableOpacity>
     );
+  }
+
+  daleteTestResult(item) {
+    this.setState({ modalDelete: true, daleteQnique: item });
   }
 }
 
@@ -158,4 +232,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  cancelBtnView: {
+    height: scale(170),
+    backgroundColor: 'white',
+    opacity: 1,
+    width: scale(250),
+    borderWidth: 0.5,
+    borderColor: 'black',
+    borderRadius: scale(10)
+  },
+  modalBtnText: {
+    alignItems: 'flex-end',
+    marginRight: scale(10),
+    marginTop: scale(5),
+    fontSize: scale(20)
+  },
+  okCancelView: {
+    flexDirection: 'row',
+    paddingHorizontal: scale(40),
+    paddingVertical: scale(30),
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
