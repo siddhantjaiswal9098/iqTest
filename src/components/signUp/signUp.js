@@ -20,10 +20,10 @@ class SignUp extends Component {
 
 
     this.state = {
-      email: 'siddhantjai9098@gmail.com',
-      password: '123456789',
-      name: 'Siddhant',
-      lname: 'Jaiswal',
+      email: '',
+      password: '',
+      name: '',
+      lname: '',
       imageURI: ''
     };
   }

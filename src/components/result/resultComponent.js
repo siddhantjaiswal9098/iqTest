@@ -123,20 +123,19 @@ class Result extends Component {
   }
 
   async deleteRes() {
-    this.props.startSpinner();
     console.log('this is result page', this.state.id, this.props.data.id);
     const idObj = {
       testId: this.state.daleteQnique,
       UserId: this.props.data.id
     };
     this.props.apiCallForResultDeleteByID(idObj);
-    const dataFrom = await _frealm.realmGetAllData(this.state.id);
+    // const dataFrom = await _frealm.realmGetAllData(this.state.id);
     this.setState({ modalDelete: !this.state.modalDelete });
-    setTimeout(() => {
-      this.setState({ dataForTestResult: dataFrom });
-      this.props.stopSpinner();
+    this.props.navigation.navigate('Home');
+    // setTimeout(() => {
     // this.setState({ dataForTestResult: dataFrom });
-    }, 3000);
+    // this.setState({ dataForTestResult: dataFrom });
+    // }, 3000);
   }
 
   itemClicked(item) {

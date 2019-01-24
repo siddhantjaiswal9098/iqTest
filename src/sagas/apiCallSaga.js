@@ -198,7 +198,7 @@ export function* ApiCallDeleteResult(action) {
   console.log('this is the value at', action.data);
   try {
     console.log('inside result Delete Call^^^^^^^', action.data.UserId, action.data.testId);
-    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/users/${action.data.UserId}/results/${action.data.testId}`;   
+    const UrlForSignUp = `https://nameless-plateau-14252.herokuapp.com/users/${action.data.UserId}/results/${action.data.testId}`;
     const postRequest = yield call(fetch, UrlForSignUp, {
       method: 'DELETE'
     });
@@ -209,9 +209,9 @@ export function* ApiCallDeleteResult(action) {
       // _frealm.deleteById(action.data.testId);
       // _frealm.CreaterealmAllResult(AllTestDetail);
       const data = action.data.UserId;
-      console.log("Data ki value", data);
+      console.log('Data ki value', data);
       yield put({ type: 'SAVE_RESULT_API_ALL', data });
-      console.log("Hell yeahh");
+      console.log('Hell yeahh');
     } else {
       Toast.show(AllTestDetail.message);
       console.log('Something went wrong.', AllTestDetail.message);
